@@ -532,6 +532,82 @@ a.chip:hover { border-color: var(--accent); color: var(--accent); }
         radial-gradient(45% 70% at 100% 100%, rgb(0 180 230 / 30%), transparent 70%),
         linear-gradient(120deg, #001f57 0%, #00307a 45%, #0047ab 100%);
 }
+/* Isometric illustration on the right. Shown only when the hero is wide enough to keep it clear of
+   the text; faded in from the left so the text side keeps the plain dark gradient (contrast unchanged). */
+.hero { position: relative; isolation: isolate; overflow: hidden; }
+.hero-text { position: relative; z-index: 1; }
+.hero-art {
+    display: none;
+    position: absolute;
+    z-index: 0;
+    top: 0;
+    right: 0;
+    width: 58%;
+    height: 100%;
+    pointer-events: none;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0% 20%, #000 42%);
+    mask-image: linear-gradient(90deg, transparent 0% 20%, #000 42%);
+}
+.hero-pause {
+    display: none;
+    position: absolute;
+    z-index: 2;
+    right: 16px;
+    bottom: 16px;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    place-items: center;
+    border-radius: 50%;
+    border: 1px solid rgb(255 255 255 / 60%);
+    background: rgb(0 25 76 / 60%);
+    cursor: pointer;
+}
+.hero-pause:hover { background: rgb(255 255 255 / 20%); }
+.hero-pause svg { width: 10px; height: 10px; fill: #fff; }
+.hero-pause .ipl,
+.hero-pause[aria-pressed="true"] .ip { display: none; }
+.hero-pause[aria-pressed="true"] .ipl { display: block; }
+
+@container (min-width: 1100px) {
+    .hero-art { display: block; }
+    .hero-pause { display: grid; }
+    .hero-text { max-width: 50%; }
+}
+
+.ha-dots { fill: none; stroke: rgb(159 197 255 / 45%); stroke-width: 2.6; stroke-linecap: round; }
+.ha-trace { fill: none; stroke: #4cc3ee; stroke-width: 1.6; stroke-dasharray: 0.18 0.82; opacity: 0.55; }
+
+/* Motion: slow float per object, pulsing graph nodes, light running along the floor traces,
+   bars and lines redrawn, and the central stack assembling once on load. Transform/opacity only. */
+.ha-float { animation: ha-float var(--d, 6s) ease-in-out var(--p, 0s) infinite alternate; }
+@keyframes ha-float { from { transform: translateY(0); } to { transform: translateY(-9px); } }
+
+.ha-main { animation: ha-float 7s ease-in-out 1.6s infinite alternate; }
+.ha-layer { animation: ha-drop 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) calc(var(--i) * 0.14s) both; }
+@keyframes ha-drop { from { transform: translateY(-60px); opacity: 0; } }
+
+.ha-node { transform-box: fill-box; transform-origin: center; animation: ha-pulse 2.8s ease-in-out calc(var(--i) * -0.55s) infinite; }
+@keyframes ha-pulse { 50% { transform: scale(1.45); opacity: 0.7; } }
+
+.ha-trace { animation: ha-run 3.6s linear calc(var(--i) * -0.4s) infinite; }
+@keyframes ha-run { from { stroke-dashoffset: 1; } to { stroke-dashoffset: -1; } }
+
+.ha-bar { transform-box: fill-box; transform-origin: bottom; animation: ha-grow 5s ease-in-out calc(var(--i) * 0.25s) infinite; }
+@keyframes ha-grow { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(0.55); } }
+
+.ha-draw { stroke-dasharray: 1; animation: ha-line 6s ease-in-out infinite; }
+@keyframes ha-line { 0% { stroke-dashoffset: 1; } 40%, 80% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: -1; } }
+
+/* Paused by the button (WCAG 2.2.2) or while the hero is off screen */
+.hero.is-paused .hero-art *,
+.hero.is-offscreen .hero-art * { animation-play-state: paused; }
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-art * { animation: none !important; }
+    .hero-pause { display: none !important; }
+}
+
 .hero-title { max-width: 14ch; font-size: clamp(2.6rem, 8.2cqw, 6.4rem); text-wrap: balance; }
 .hero-sub { margin-top: 20px; max-width: 50ch; color: rgb(255 255 255 / 88%); }
 .hero .cta { margin-top: 28px; }

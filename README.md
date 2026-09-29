@@ -11,6 +11,7 @@ Ghost theme for [blog.diegomirhan.com](https://blog.diegomirhan.com), the blog t
 ## What it does
 
 - **Hero on the home page.** It shows a headline, a short intro and three links: "See portfolio", "Talk to me" (email) and LinkedIn. You can edit all of it in Ghost Admin without touching code.
+- **Animated illustration in the hero** on wide screens: an isometric data scene as inline SVG (about 12 KB gzipped), animated with CSS only. Objects float, graph nodes pulse, light runs along the floor lines, bars and charts redraw, and the central stack assembles on load. A pause button (WCAG 2.2.2) stops it, it pauses while the hero is off screen, and it is off for `prefers-reduced-motion`. It stays clear of the text and is hidden below about 1150px, where the hero is text only. To change it, edit `tools/hero-art.mjs` and run `node tools/hero-art.mjs`.
 - **Author box at the end of every post.** It shows the bio, a one-line pitch and the same portfolio and contact buttons, followed by the newsletter signup.
 - **Dark and light modes** follow `prefers-color-scheme`, with dark as the base. All colors live as tokens at the top of `assets/css/screen.css`.
 - **Translated UI.** Every piece of interface text goes through Ghost's `{{t}}` helper. `locales/pt-BR.json` is complete and `locales/en.json` is the fallback, so you pick the language in Ghost Admin.
@@ -72,6 +73,7 @@ assets/fonts/          self-hosted woff2 (Bricolage Grotesque, JetBrains Mono)
 
 ## Changelog
 
+- 1.2.0: animated isometric illustration in the home hero, with a pause button, off-screen pause and reduced-motion support.
 - 1.1.0:
   - dark mode that follows the system;
   - home hero with portfolio and contact CTAs;

@@ -25,6 +25,22 @@
         });
     }
 
+    /* ---------- Hero animation: pause button + pause while off screen ---------- */
+    var hero = document.querySelector('[data-hero]');
+    var heroBtn = hero && hero.querySelector('[data-hero-pause]');
+    if (hero && heroBtn) {
+        heroBtn.addEventListener('click', function () {
+            var paused = hero.classList.toggle('is-paused');
+            heroBtn.setAttribute('aria-pressed', paused ? 'true' : 'false');
+            heroBtn.setAttribute('aria-label', heroBtn.getAttribute(paused ? 'data-l-play' : 'data-l-pause'));
+        });
+        if ('IntersectionObserver' in window) {
+            new IntersectionObserver(function (entries) {
+                hero.classList.toggle('is-offscreen', !entries[0].isIntersecting);
+            }).observe(hero);
+        }
+    }
+
     /* ---------- Carousel ---------- */
     var ICONS =
         '<svg class="ip" viewBox="0 0 10 10" aria-hidden="true"><rect x="1" y="0.5" width="3" height="9"/><rect x="6" y="0.5" width="3" height="9"/></svg>' +

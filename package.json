@@ -1,7 +1,7 @@
 {
   "name": "diego-mirhan",
   "description": "Personal blog theme for Diego Mirhan: gradient frame, dark/light card that follows the system, hero with portfolio and contact calls to action, WCAG 2.2 AA.",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "engines": {
     "ghost": ">=5.0.0"
   },
