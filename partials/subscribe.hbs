@@ -1,0 +1,12 @@
+{{!-- Ghost Members signup form. Ghost adds .loading / .success / .error to the form. --}}
+<form class="subscribe-form" data-members-form="subscribe" data-members-autoredirect="false">
+    <div class="subscribe-row">
+        <input data-members-email type="email" name="email" required placeholder="you@email.com" aria-label="Your email" autocomplete="email">
+        <button type="submit" class="sbtn">
+            <span class="idle">Subscribe</span>
+            <span class="busy">Sending…</span>
+        </button>
+    </div>
+    <p class="subscribe-msg msg-ok" role="status">Check your inbox for the confirmation link.</p>
+    <p class="subscribe-msg msg-err" role="alert" data-members-error>Something went wrong. Please try again.</p>
+</form>

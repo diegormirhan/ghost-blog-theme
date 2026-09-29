@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="{{@site.locale}}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{meta_title}}</title>
+
+    <link rel="preload" href="{{asset "fonts/bricolage-grotesque-latin-standard-normal.woff2"}}" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="{{asset "css/screen.css"}}">
+
+    {{ghost_head}}
+</head>
+<body class="{{body_class}}">
+    <a class="skip" href="#main">Skip to content</a>
+
+    <div class="shell">
+        {{> header}}
+
+        <main id="main" class="site-main">
+            {{{body}}}
+        </main>
+
+        {{> footer}}
+    </div>
+
+    <script src="{{asset "js/main.js"}}" defer></script>
+    {{ghost_foot}}
+</body>
+</html>

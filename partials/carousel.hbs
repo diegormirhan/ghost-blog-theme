@@ -1,0 +1,59 @@
+{{!-- Featured carousel. Slides are shown only when they have something to link to. --}}
+<section class="ban live vivid" data-carousel data-seconds="{{@custom.carousel_seconds}}" data-tone="1" aria-roledescription="carousel" aria-label="Highlights">
+    <div class="fx" aria-hidden="true">
+        <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="blob b4"></div><div class="beam"></div>
+    </div>
+    <div class="scrim" aria-hidden="true"></div>
+
+    {{#if @site.members_enabled}}
+        {{#unless @member}}
+        <div class="slide" data-slide data-tone="1" aria-roledescription="slide">
+            <div>
+                <span class="kick">Newsletter</span>
+                <h2 class="display sm">Get new posts by email</h2>
+                <p>One email when I publish. No spam, unsubscribe anytime.</p>
+            </div>
+            {{> subscribe}}
+        </div>
+        {{/unless}}
+    {{/if}}
+
+    {{#if @custom.main_site_url}}
+    <div class="slide" data-slide data-tone="2" aria-roledescription="slide">
+        <div>
+            <span class="kick">Main site</span>
+            <h2 class="display sm">Portfolio &amp; projects</h2>
+            <p>Projects, experience and contact on my main site.</p>
+        </div>
+        <div class="go"><a class="pill" href="{{@custom.main_site_url}}" rel="noopener">Visit site ↗</a><span class="url">{{@custom.main_site_url}}</span></div>
+    </div>
+    {{/if}}
+
+    {{#if @custom.github_url}}
+    <div class="slide" data-slide data-tone="3" aria-roledescription="slide">
+        <div>
+            <span class="kick">GitHub</span>
+            <h2 class="display sm">Open source</h2>
+            <p>The projects behind the posts, with code you can run.</p>
+        </div>
+        <div class="go"><a class="pill" href="{{@custom.github_url}}" rel="noopener">View on GitHub ↗</a><span class="url">{{@custom.github_url}}</span></div>
+    </div>
+    {{/if}}
+
+    {{#if @custom.linkedin_url}}
+    <div class="slide" data-slide data-tone="4" aria-roledescription="slide">
+        <div>
+            <span class="kick">LinkedIn</span>
+            <h2 class="display sm">Let's talk</h2>
+            <p>Work, collaborations, or just swapping ideas about AI.</p>
+        </div>
+        <div class="go"><a class="pill" href="{{@custom.linkedin_url}}" rel="noopener">Open LinkedIn ↗</a><span class="url">{{@custom.linkedin_url}}</span></div>
+    </div>
+    {{/if}}
+
+    <div class="dots" role="group" aria-label="Choose highlight">
+        <button type="button" class="pp" aria-label="Pause carousel" aria-pressed="false"></button>
+    </div>
+    <button type="button" class="nav prev" data-dir="-1" aria-label="Previous">←</button>
+    <button type="button" class="nav next" data-dir="1" aria-label="Next">→</button>
+</section>

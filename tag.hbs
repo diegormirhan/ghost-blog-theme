@@ -1,0 +1,16 @@
+{{!< default}}
+
+{{#tag}}
+<header class="page-head">
+    <div class="mono muted">Tag · {{plural ../pagination.total empty="No posts" singular="% post" plural="% posts"}}</div>
+    <h1 class="display xl">{{name}}</h1>
+    {{#if description}}<p class="lead muted">{{description}}</p>{{/if}}
+</header>
+{{/tag}}
+
+<div class="grid3 grid-page">
+    {{#foreach posts}}
+        {{> post-card}}
+    {{/foreach}}
+</div>
+{{pagination}}

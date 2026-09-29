@@ -1,0 +1,67 @@
+{{!< default}}
+
+{{#post}}
+<article class="post {{post_class}}">
+    <header class="post-head">
+        <div class="mono muted post-meta">
+            {{#if primary_tag}}<a class="chip" href="{{primary_tag.url}}">{{primary_tag.name}}</a>{{/if}}
+            <span><time datetime="{{date format="YYYY-MM-DD"}}">{{date format="MMM D, YYYY"}}</time> · {{reading_time minute="1 min read" minutes="% min read"}}</span>
+        </div>
+        <h1 class="display md post-title">{{title}}</h1>
+        {{#if custom_excerpt}}<p class="lead muted">{{custom_excerpt}}</p>{{/if}}
+    </header>
+
+    {{#if feature_image}}
+    <figure class="post-cover">
+        <img src="{{img_url feature_image size="xl"}}"
+             srcset="{{img_url feature_image size="m"}} 640w, {{img_url feature_image size="l"}} 1000w, {{img_url feature_image size="xl"}} 2000w"
+             sizes="(max-width: 1200px) 92vw, 1100px" alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}">
+        {{#if feature_image_caption}}<figcaption>{{{feature_image_caption}}}</figcaption>{{/if}}
+    </figure>
+    {{/if}}
+
+    <div class="gh-content prose">
+        {{content}}
+    </div>
+
+    {{#if @site.members_enabled}}
+        {{#unless @member}}
+        <section class="sub">
+            <div>
+                <h2 class="display sm">Liked this? Get the next one</h2>
+                <p>One email per new post. No spam.</p>
+            </div>
+            {{> subscribe}}
+        </section>
+        {{/unless}}
+    {{/if}}
+
+    {{#if primary_author}}
+    <footer class="author">
+        {{#if primary_author.profile_image}}
+            <img class="av" src="{{img_url primary_author.profile_image size="xs"}}" alt="{{primary_author.name}}">
+        {{else}}
+            <span class="av" aria-hidden="true"></span>
+        {{/if}}
+        <div>
+            <a href="{{primary_author.url}}"><b>{{primary_author.name}}</b></a>
+            {{#if primary_author.bio}}<div class="muted">{{primary_author.bio}}</div>{{/if}}
+        </div>
+    </footer>
+    {{/if}}
+
+    {{#next_post}}
+    <a class="post-next" href="{{url}}">
+        <span class="mono muted">Next post</span>
+        <span class="display md next-title">{{title}}</span>
+    </a>
+    {{else}}
+        {{#prev_post}}
+        <a class="post-next" href="{{url}}">
+            <span class="mono muted">Previous post</span>
+            <span class="display md next-title">{{title}}</span>
+        </a>
+        {{/prev_post}}
+    {{/next_post}}
+</article>
+{{/post}}

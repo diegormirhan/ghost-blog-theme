@@ -1,0 +1,45 @@
+<aside class="sb" aria-label="About and links">
+    <div>
+        <div class="who">
+            {{#if @site.icon}}
+                <img class="av" src="{{img_url @site.icon size="xs"}}" alt="">
+            {{else}}
+                <span class="av" aria-hidden="true"></span>
+            {{/if}}
+            <div><b>{{@site.title}}</b></div>
+        </div>
+        {{#if @site.description}}<p>{{@site.description}}</p>{{/if}}
+    </div>
+
+    {{#get "tags" limit="8" order="count.posts desc" include="count.posts"}}
+        {{#if tags}}
+        <div>
+            <h4>Tags</h4>
+            <div class="tags">
+                {{#foreach tags}}<a class="chip" href="{{url}}">{{name}} · {{count.posts}}</a>{{/foreach}}
+            </div>
+        </div>
+        {{/if}}
+    {{/get}}
+
+    {{#get "posts" filter="featured:true" limit="3"}}
+        {{#if posts}}
+        <div>
+            <h4>Featured</h4>
+            <ol>
+                {{#foreach posts}}<li><a href="{{url}}">{{title}}</a></li>{{/foreach}}
+            </ol>
+        </div>
+        {{/if}}
+    {{/get}}
+
+    <div>
+        <h4>Links</h4>
+        <div class="soc">
+            {{#if @custom.github_url}}<a href="{{@custom.github_url}}" rel="noopener">GitHub <span>↗</span></a>{{/if}}
+            {{#if @custom.linkedin_url}}<a href="{{@custom.linkedin_url}}" rel="noopener">LinkedIn <span>↗</span></a>{{/if}}
+            {{#if @custom.medium_url}}<a href="{{@custom.medium_url}}" rel="noopener">Medium <span>↗</span></a>{{/if}}
+            <a href="{{@site.url}}/rss/">RSS <span>↗</span></a>
+        </div>
+    </div>
+</aside>

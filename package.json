@@ -1,0 +1,60 @@
+{
+  "name": "diego-mirhan",
+  "description": "Personal blog theme for Diego Mirhan: gradient frame, white rounded card, featured carousel with a live background.",
+  "version": "1.0.1",
+  "engines": {
+    "ghost": ">=5.0.0"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Diego Mirhan",
+    "email": "mirhan.diego@gmail.com",
+    "url": "https://www.diegomirhan.com"
+  },
+  "keywords": ["ghost-theme", "blog", "personal"],
+  "screenshots": {},
+  "config": {
+    "posts_per_page": 12,
+    "image_sizes": {
+      "xs": { "width": 150 },
+      "s": { "width": 320 },
+      "m": { "width": 640 },
+      "l": { "width": 1000 },
+      "xl": { "width": 2000 }
+    },
+    "card_assets": true,
+    "custom": {
+      "show_carousel": {
+        "type": "boolean",
+        "default": true,
+        "group": "homepage"
+      },
+      "carousel_seconds": {
+        "type": "select",
+        "options": ["Off", "5", "7", "10"],
+        "default": "7",
+        "group": "homepage"
+      },
+      "main_site_url": {
+        "type": "text",
+        "default": "https://www.diegomirhan.com",
+        "group": "homepage"
+      },
+      "github_url": {
+        "type": "text",
+        "default": "https://github.com/diegormirhan",
+        "group": "homepage"
+      },
+      "linkedin_url": {
+        "type": "text",
+        "default": "https://www.linkedin.com/in/diegomirhan",
+        "group": "homepage"
+      },
+      "medium_url": {
+        "type": "text",
+        "default": "https://medium.com/@diegomirhan",
+        "group": "homepage"
+      }
+    }
+  }
+}
