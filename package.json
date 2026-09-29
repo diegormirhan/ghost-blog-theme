@@ -1,7 +1,7 @@
 {
   "name": "diego-mirhan",
-  "description": "Personal blog theme for Diego Mirhan: gradient frame, white rounded card, featured carousel with a live background.",
-  "version": "1.0.1",
+  "description": "Personal blog theme for Diego Mirhan: gradient frame, dark/light card that follows the system, hero with portfolio and contact calls to action, WCAG 2.2 AA.",
+  "version": "1.1.0",
   "engines": {
     "ghost": ">=5.0.0"
   },
@@ -11,27 +11,71 @@
     "email": "mirhan.diego@gmail.com",
     "url": "https://www.diegomirhan.com"
   },
-  "keywords": ["ghost-theme", "blog", "personal"],
+  "keywords": [
+    "ghost-theme",
+    "blog",
+    "personal"
+  ],
+  "scripts": {
+    "zip": "git archive --format=zip -o diego-mirhan.zip HEAD",
+    "test": "npm run zip && gscan --zip diego-mirhan.zip"
+  },
+  "devDependencies": {
+    "gscan": "^6.6.1"
+  },
   "screenshots": {},
   "config": {
     "posts_per_page": 12,
     "image_sizes": {
-      "xs": { "width": 150 },
-      "s": { "width": 320 },
-      "m": { "width": 640 },
-      "l": { "width": 1000 },
-      "xl": { "width": 2000 }
+      "xs": {
+        "width": 150
+      },
+      "s": {
+        "width": 320
+      },
+      "m": {
+        "width": 640
+      },
+      "l": {
+        "width": 1000
+      },
+      "xl": {
+        "width": 2000
+      }
     },
     "card_assets": true,
     "custom": {
+      "hero_title": {
+        "type": "text",
+        "default": "IA local, do modelo à interface",
+        "group": "homepage",
+        "description": "Headline at the top of the home page"
+      },
+      "hero_subtitle": {
+        "type": "text",
+        "default": "Sou Diego Mirhan, estudante de Ciência da Computação. Aqui escrevo sobre o que construo e testo com LLMs locais, RAG, visão computacional e engenharia de dados.",
+        "group": "homepage",
+        "description": "Text below the headline"
+      },
+      "contact_email": {
+        "type": "text",
+        "default": "contato@diegomirhan.com",
+        "group": "homepage",
+        "description": "Used by the \"Talk to me\" buttons and the footer"
+      },
       "show_carousel": {
         "type": "boolean",
-        "default": true,
+        "default": false,
         "group": "homepage"
       },
       "carousel_seconds": {
         "type": "select",
-        "options": ["Off", "5", "7", "10"],
+        "options": [
+          "Off",
+          "5",
+          "7",
+          "10"
+        ],
         "default": "7",
         "group": "homepage"
       },

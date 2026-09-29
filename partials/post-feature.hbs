@@ -11,7 +11,7 @@
     <div class="pc">
         <div class="meta">
             {{#if primary_tag}}<a class="chip" href="{{primary_tag.url}}">{{primary_tag.name}}</a>{{/if}}
-            <span class="mono muted"><time datetime="{{date format="YYYY-MM-DD"}}">{{date format="MMM D, YYYY"}}</time> · {{reading_time minute="1 min read" minutes="% min read"}}</span>
+            <span class="mono muted"><time datetime="{{date format="YYYY-MM-DD"}}">{{date format="D MMM YYYY"}}</time> · {{reading_time minute=(t "1 min read") minutes=(t "% min read")}}</span>
         </div>
         <h2 class="display md feat-title"><a href="{{url}}">{{title}}</a></h2>
         <p>{{excerpt words="28"}}</p>

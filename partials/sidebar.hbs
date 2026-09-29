@@ -1,4 +1,4 @@
-<aside class="sb" aria-label="About and links">
+<aside class="sb" aria-label="{{t "About and links"}}">
     <div>
         <div class="who">
             {{#if @site.icon}}
@@ -14,7 +14,7 @@
     {{#get "tags" limit="8" order="count.posts desc" include="count.posts"}}
         {{#if tags}}
         <div>
-            <h4>Tags</h4>
+            <h2 class="sb-title">{{t "Tags"}}</h2>
             <div class="tags">
                 {{#foreach tags}}<a class="chip" href="{{url}}">{{name}} · {{count.posts}}</a>{{/foreach}}
             </div>
@@ -25,7 +25,7 @@
     {{#get "posts" filter="featured:true" limit="3"}}
         {{#if posts}}
         <div>
-            <h4>Featured</h4>
+            <h2 class="sb-title">{{t "Featured"}}</h2>
             <ol>
                 {{#foreach posts}}<li><a href="{{url}}">{{title}}</a></li>{{/foreach}}
             </ol>
@@ -34,12 +34,13 @@
     {{/get}}
 
     <div>
-        <h4>Links</h4>
+        <h2 class="sb-title">{{t "Links"}}</h2>
         <div class="soc">
-            {{#if @custom.github_url}}<a href="{{@custom.github_url}}" rel="noopener">GitHub <span>↗</span></a>{{/if}}
-            {{#if @custom.linkedin_url}}<a href="{{@custom.linkedin_url}}" rel="noopener">LinkedIn <span>↗</span></a>{{/if}}
-            {{#if @custom.medium_url}}<a href="{{@custom.medium_url}}" rel="noopener">Medium <span>↗</span></a>{{/if}}
-            <a href="{{@site.url}}/rss/">RSS <span>↗</span></a>
+            {{#if @custom.main_site_url}}<a href="{{@custom.main_site_url}}" rel="noopener">{{t "Portfolio"}} <span aria-hidden="true">↗</span></a>{{/if}}
+            {{#if @custom.github_url}}<a href="{{@custom.github_url}}" rel="noopener">GitHub <span aria-hidden="true">↗</span></a>{{/if}}
+            {{#if @custom.linkedin_url}}<a href="{{@custom.linkedin_url}}" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>{{/if}}
+            {{#if @custom.medium_url}}<a href="{{@custom.medium_url}}" rel="noopener">Medium <span aria-hidden="true">↗</span></a>{{/if}}
+            <a href="{{@site.url}}/rss/">RSS <span aria-hidden="true">↗</span></a>
         </div>
     </div>
 </aside>

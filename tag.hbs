@@ -2,7 +2,7 @@
 
 {{#tag}}
 <header class="page-head">
-    <div class="mono muted">Tag · {{plural ../pagination.total empty="No posts" singular="% post" plural="% posts"}}</div>
+    <div class="mono muted">{{t "Tag"}} · {{plural ../pagination.total empty=(t "No posts") singular=(t "% post") plural=(t "% posts")}}</div>
     <h1 class="display xl">{{name}}</h1>
     {{#if description}}<p class="lead muted">{{description}}</p>{{/if}}
 </header>

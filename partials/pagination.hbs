@@ -1,7 +1,7 @@
 {{#match pages ">" 1}}
-<nav class="pager mono" role="navigation" aria-label="Pagination">
-    {{#if prev}}<a href="{{page_url prev}}" rel="prev">← Newer</a>{{else}}<span></span>{{/if}}
-    <span class="muted">Page {{page}} of {{pages}}</span>
-    {{#if next}}<a href="{{page_url next}}" rel="next">Older →</a>{{else}}<span></span>{{/if}}
+<nav class="pager mono" aria-label="{{t "Pagination"}}">
+    {{#if prev}}<a href="{{page_url prev}}" rel="prev">← {{t "Newer"}}</a>{{else}}<span></span>{{/if}}
+    <span class="muted">{{t "Page {page} of {pages}" page=page pages=pages}}</span>
+    {{#if next}}<a href="{{page_url next}}" rel="next">{{t "Older"}} →</a>{{else}}<span></span>{{/if}}
 </nav>
 {{/match}}

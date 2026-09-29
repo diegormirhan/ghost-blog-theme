@@ -2,16 +2,16 @@
 
 {{#author}}
 <header class="page-head author-head">
-    <div class="mono muted">Author · {{plural ../pagination.total empty="No posts" singular="% post" plural="% posts"}}</div>
+    <div class="mono muted">{{t "Author"}} · {{plural ../pagination.total empty=(t "No posts") singular=(t "% post") plural=(t "% posts")}}</div>
     <div class="author-line">
         {{#if profile_image}}
-            <img class="av av-lg" src="{{img_url profile_image size="s"}}" alt="{{name}}">
+            <img class="av av-lg" src="{{img_url profile_image size="s"}}" alt="">
         {{/if}}
         <h1 class="display xl">{{name}}</h1>
     </div>
     {{#if bio}}<p class="lead muted">{{bio}}</p>{{/if}}
     <p class="mono muted head-links">
-        {{#if website}}<a href="{{website}}" rel="noopener">Website ↗</a>{{/if}}
+        {{#if website}}<a href="{{website}}" rel="noopener">{{t "Website"}} ↗</a>{{/if}}
         {{#if twitter}}<a href="{{social_url type="twitter"}}" rel="noopener">X ↗</a>{{/if}}
     </p>
 </header>

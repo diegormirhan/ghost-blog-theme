@@ -1,36 +1,36 @@
 <header class="hd">
-    <a class="brand" href="{{@site.url}}">{{@site.title}}<span class="dot">.</span></a>
+    <a class="brand" href="{{@site.url}}">{{@site.title}}<span class="dot" aria-hidden="true">.</span></a>
 
-    <nav class="hd-nav mono" aria-label="Main">
+    <nav class="hd-nav mono" aria-label="{{t "Main"}}">
         {{navigation}}
         {{#if @custom.main_site_url}}
-            <a href="{{@custom.main_site_url}}" rel="noopener">Main site ↗</a>
+            <a href="{{@custom.main_site_url}}" rel="noopener">{{t "Portfolio"}} ↗</a>
         {{/if}}
     </nav>
 
     <div class="hd-tools">
-        <button class="ico" type="button" data-ghost-search aria-label="Search">
+        <button class="ico" type="button" data-ghost-search aria-label="{{t "Search"}}">
             <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
         </button>
         {{#if @site.members_enabled}}
             {{#unless @member}}
-                <a class="pill solid hd-sub" href="#/portal/signup" data-portal="signup">Subscribe</a>
+                <a class="pill solid hd-sub" href="#/portal/signup" data-portal="signup">{{t "Subscribe"}}</a>
             {{else}}
-                <a class="pill hd-sub" href="#/portal/account" data-portal="account">Account</a>
+                <a class="pill hd-sub" href="#/portal/account" data-portal="account">{{t "Account"}}</a>
             {{/unless}}
         {{/if}}
-        <button class="pill hd-menu" type="button" data-menu-toggle aria-expanded="false" aria-controls="hd-panel">Menu</button>
+        <button class="pill hd-menu" type="button" data-menu-toggle data-label-open="{{t "Menu"}}" data-label-close="{{t "Close"}}" aria-expanded="false" aria-controls="hd-panel">{{t "Menu"}}</button>
     </div>
 
     <div class="hd-panel" id="hd-panel" hidden>
-        <nav class="mono" aria-label="Mobile">
+        <nav class="mono" aria-label="{{t "Mobile"}}">
             {{navigation}}
             {{#if @custom.main_site_url}}
-                <a href="{{@custom.main_site_url}}" rel="noopener">Main site ↗</a>
+                <a href="{{@custom.main_site_url}}" rel="noopener">{{t "Portfolio"}} ↗</a>
             {{/if}}
             {{#if @site.members_enabled}}
                 {{#unless @member}}
-                    <a href="#/portal/signup" data-portal="signup">Subscribe</a>
+                    <a href="#/portal/signup" data-portal="signup">{{t "Subscribe"}}</a>
                 {{/unless}}
             {{/if}}
         </nav>

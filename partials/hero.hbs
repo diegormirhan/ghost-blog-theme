@@ -1,0 +1,5 @@
+<section class="hero" aria-labelledby="hero-title">
+    <h1 class="display hero-title" id="hero-title">{{#if @custom.hero_title}}{{@custom.hero_title}}{{else}}{{@site.title}}{{/if}}</h1>
+    {{#if @custom.hero_subtitle}}<p class="lead hero-sub">{{@custom.hero_subtitle}}</p>{{/if}}
+    {{> cta-links}}
+</section>

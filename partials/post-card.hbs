@@ -12,7 +12,7 @@
     </a>
     <div class="meta">
         {{#if primary_tag}}<a class="chip" href="{{primary_tag.url}}">{{primary_tag.name}}</a>{{/if}}
-        <span class="mono muted"><time datetime="{{date format="YYYY-MM-DD"}}">{{date format="MMM D"}}</time> · {{reading_time minute="1 min" minutes="% min"}}</span>
+        <span class="mono muted"><time datetime="{{date format="YYYY-MM-DD"}}">{{date format="D MMM"}}</time> · {{reading_time minute=(t "1 min") minutes=(t "% min")}}</span>
     </div>
-    <h3 class="display sm"><a href="{{url}}">{{title}}</a></h3>
+    <h2 class="display sm"><a href="{{url}}">{{title}}</a></h2>
 </article>

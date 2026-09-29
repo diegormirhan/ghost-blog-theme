@@ -1,7 +1,7 @@
 {{!< default}}
 
 {{#is "home"}}
-    <h1 class="sr-only">{{@site.title}}</h1>
+    {{> hero}}
     {{#if @custom.show_carousel}}
         {{> carousel}}
     {{/if}}
@@ -13,7 +13,7 @@
     <div class="lay">
         {{> sidebar}}
         <div class="lay-main">
-            <h2 class="section-title mono">Latest posts</h2>
+            <h2 class="section-title mono">{{t "Latest posts"}}</h2>
             <div class="grid3">
                 {{#foreach posts from="2"}}
                     {{> post-card}}
@@ -26,7 +26,7 @@
     <div class="lay lay-top">
         {{> sidebar}}
         <div class="lay-main">
-            <h1 class="section-title mono">Latest posts</h1>
+            <h1 class="section-title mono">{{t "Latest posts"}}</h1>
             <div class="grid3">
                 {{#foreach posts}}
                     {{> post-card}}

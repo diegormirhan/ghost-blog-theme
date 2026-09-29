@@ -7,17 +7,19 @@
     var toggle = document.querySelector('[data-menu-toggle]');
     var panel = document.getElementById('hd-panel');
     if (toggle && panel) {
+        var labelOpen = toggle.getAttribute('data-label-open') || 'Menu';
+        var labelClose = toggle.getAttribute('data-label-close') || 'Close';
         toggle.addEventListener('click', function () {
             var open = panel.hasAttribute('hidden');
             if (open) { panel.removeAttribute('hidden'); } else { panel.setAttribute('hidden', ''); }
             toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-            toggle.textContent = open ? 'Close' : 'Menu';
+            toggle.textContent = open ? labelClose : labelOpen;
         });
         document.addEventListener('keydown', function (e) {
             if (e.key === 'Escape' && !panel.hasAttribute('hidden')) {
                 panel.setAttribute('hidden', '');
                 toggle.setAttribute('aria-expanded', 'false');
-                toggle.textContent = 'Menu';
+                toggle.textContent = labelOpen;
                 toggle.focus();
             }
         });
@@ -36,6 +38,12 @@
     var pp = banner.querySelector('.pp');
     var arrows = [].slice.call(banner.querySelectorAll('[data-dir]'));
     if (!slides.length) { banner.hidden = true; return; }
+
+    var L = {
+        pause: banner.getAttribute('data-l-pause') || 'Pause carousel',
+        play: banner.getAttribute('data-l-play') || 'Play carousel',
+        goto: banner.getAttribute('data-l-goto') || 'Go to item'
+    };
 
     var seconds = parseInt(banner.getAttribute('data-seconds'), 10);
     var duration = seconds > 0 ? seconds * 1000 : 0;
@@ -59,7 +67,7 @@
     slides.forEach(function (_, k) {
         var b = document.createElement('button');
         b.type = 'button';
-        b.setAttribute('aria-label', 'Go to item ' + (k + 1));
+        b.setAttribute('aria-label', L.goto + ' ' + (k + 1));
         b.addEventListener('click', function () { go(k); });
         dots.appendChild(b);
     });
@@ -69,7 +77,7 @@
 
     function renderState() {
         banner.classList.toggle('paused', !visible || !playing);
-        pp.setAttribute('aria-label', playing ? 'Pause carousel' : 'Play carousel');
+        pp.setAttribute('aria-label', playing ? L.pause : L.play);
         pp.setAttribute('aria-pressed', playing ? 'false' : 'true');
     }
 
