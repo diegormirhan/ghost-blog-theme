@@ -5,6 +5,7 @@
     "% posts": "% posts",
     "1 min": "1 min",
     "1 min read": "1 min de leitura",
+    "About": "Sobre",
     "About and links": "Sobre e links",
     "Account": "Conta",
     "Author": "Autor",
@@ -17,6 +18,7 @@
     "Get new posts by email": "Receba os novos posts por e-mail",
     "Go to item": "Ir para o item",
     "Highlights": "Destaques",
+    "Home": "Início",
     "Latest posts": "Últimos posts",
     "Let's talk": "Vamos conversar",
     "Liked this? Get the next one": "Gostou? Receba o próximo",
@@ -59,6 +61,6 @@
     "Website": "Site",
     "Work, collaborations, or just swapping ideas about AI.": "Trabalho, parcerias ou só uma boa conversa sobre IA.",
     "Written by": "Escrito por",
-    "Your email": "Seu e-mail",
-    "you@email.com": "voce@email.com"
+    "you@email.com": "voce@email.com",
+    "Your email": "Seu e-mail"
 }

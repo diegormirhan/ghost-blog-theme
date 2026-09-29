@@ -35,7 +35,7 @@ npm test        # zips HEAD with git archive and validates the zip with gscan
 npm run zip     # diego-mirhan.zip, ready to upload
 ```
 
-For a local Ghost, run `npx ghost-cli install local` inside `.ghost-local/`, which is gitignored. Then run `sh sync-local.sh` to copy the theme into it. The copy is needed because `.ghost-local` lives inside the theme, so a symlink would loop.
+For a local Ghost, run `npx ghost-cli install local` inside `.ghost-local/`, which is gitignored. Then run `sh sync-local.sh` to copy the theme into it, and restart Ghost, since it caches templates and locales. The copy is needed because `.ghost-local` lives inside the theme, so a symlink would loop.
 
 ### How 1.1.0 was tested
 
@@ -51,7 +51,7 @@ For a local Ghost, run `npx ghost-cli install local` inside `.ghost-local/`, whi
 |---|---|
 | General | Title, description (sidebar), publication icon (sidebar avatar), **language `pt-BR`** |
 | Design → Homepage | Hero title and subtitle, contact email, carousel on or off and its speed, and the portfolio, GitHub, LinkedIn and Medium links. Leave a link empty to hide it everywhere. |
-| Navigation | Primary links. A "Portfolio ↗" link is added automatically. |
+| Navigation | Primary links. A "Portfolio ↗" link is added automatically. Ghost's default labels "Home" and "About" show up as "Início" and "Sobre"; any other label shows as you type it. |
 | Memberships | Turn on signups to show the newsletter blocks. |
 | Posts | Mark posts as **Featured** to list them in the sidebar. |
 

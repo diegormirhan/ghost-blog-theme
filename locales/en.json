@@ -5,6 +5,7 @@
     "% posts": "% posts",
     "1 min": "1 min",
     "1 min read": "1 min read",
+    "About": "About",
     "About and links": "About and links",
     "Account": "Account",
     "Author": "Author",
@@ -17,6 +18,7 @@
     "Get new posts by email": "Get new posts by email",
     "Go to item": "Go to item",
     "Highlights": "Highlights",
+    "Home": "Home",
     "Latest posts": "Latest posts",
     "Let's talk": "Let's talk",
     "Liked this? Get the next one": "Liked this? Get the next one",
@@ -59,6 +61,6 @@
     "Website": "Website",
     "Work, collaborations, or just swapping ideas about AI.": "Work, collaborations, or just swapping ideas about AI.",
     "Written by": "Written by",
-    "Your email": "Your email",
-    "you@email.com": "you@email.com"
+    "you@email.com": "you@email.com",
+    "Your email": "Your email"
 }
