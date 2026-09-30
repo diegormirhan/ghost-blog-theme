@@ -5,7 +5,7 @@
         <nav class="hd-nav" aria-label="{{t "Main"}}">
             {{navigation}}
             {{#if @custom.main_site_url}}
-                <a href="{{@custom.main_site_url}}" rel="noopener">{{t "Portfolio"}} <span aria-hidden="true">↗</span></a>
+                <a href="{{@custom.main_site_url}}" rel="noopener">{{t "Portfolio"}} <span class="arr" aria-hidden="true">↗</span></a>
             {{/if}}
         </nav>
 
@@ -28,7 +28,7 @@
         <nav class="wrap" aria-label="{{t "Mobile"}}">
             {{navigation}}
             {{#if @custom.main_site_url}}
-                <a href="{{@custom.main_site_url}}" rel="noopener">{{t "Portfolio"}} <span aria-hidden="true">↗</span></a>
+                <a href="{{@custom.main_site_url}}" rel="noopener">{{t "Portfolio"}} <span class="arr" aria-hidden="true">↗</span></a>
             {{/if}}
             {{#if @site.members_enabled}}
                 {{#unless @member}}

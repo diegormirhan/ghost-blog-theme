@@ -526,3 +526,85 @@ iframe { color-scheme: light; }
 
 .error-page { padding-block: 96px; }
 .error-page .btn { margin-top: 12px; }
+
+/* ==========================================================================
+   Motion layer. Every piece has a reason: continuity between pages, reading position, guiding the eye
+   down the list, hinting that a link leaves the site. All of it is off for prefers-reduced-motion.
+   ========================================================================== */
+
+/* ---------- Page transitions (View Transitions, cross-document; Chrome/Edge, others just navigate) ---------- */
+@view-transition { navigation: auto; }
+/* a title that wraps into several line boxes would cancel the whole transition, so the named ones are blocks */
+.card-title a, .feat-title a, .post-title span { display: block; }
+.hd { view-transition-name: site-header; }
+::view-transition-group(*) { animation-duration: 0.45s; animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1); }
+::view-transition-old(root) { animation: vt-out 0.2s ease both; }
+::view-transition-new(root) { animation: vt-in 0.35s cubic-bezier(0.16, 1, 0.3, 1) 0.05s both; }
+@keyframes vt-out { to { opacity: 0; } }
+@keyframes vt-in { from { opacity: 0; transform: translateY(10px); } }
+
+/* ---------- Reading progress (posts): a scroll-driven animation, no JS ---------- */
+.read-progress { display: none; }
+@supports (animation-timeline: scroll()) {
+    .read-progress {
+        display: block;
+        position: fixed;
+        inset: 0 0 auto 0;
+        z-index: 70;
+        height: 3px;
+        background: linear-gradient(90deg, var(--brand), var(--accent));
+        transform-origin: 0 50%;
+        animation: read-grow linear both;
+        animation-timeline: scroll(root block);
+    }
+    @keyframes read-grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+}
+
+/* ---------- Reveal on scroll (main.js marks only what starts below the fold) ---------- */
+.will-reveal { opacity: 0; transform: translateY(14px); }
+.will-reveal.is-in {
+    opacity: 1;
+    transform: none;
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1) var(--d, 0s), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) var(--d, 0s);
+}
+
+/* ---------- Arrows that point where the link goes ---------- */
+.arr { display: inline-block; transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1); }
+a:is(:hover, :focus-visible) .arr { transform: translate(2px, -2px); }
+a:is(:hover, :focus-visible) .arr-back { transform: translateX(-3px); }
+a:is(:hover, :focus-visible) .arr-fwd { transform: translateX(3px); }
+
+/* ---------- Scrollbar (desktop mouse only), same as the portfolio ---------- */
+/* The native bar is hidden and this one takes over: a thin gradient thumb that stays quiet when idle,
+   lights up and stretches a little with scroll speed, grows on hover, can be dragged or clicked. */
+html.has-scrollbar { scrollbar-width: none; }
+html.has-scrollbar::-webkit-scrollbar { display: none; }
+#scrollbar { display: none; }
+.has-scrollbar #scrollbar {
+    position: fixed; top: 8px; right: 4px; bottom: 8px; z-index: 80;
+    display: block; width: 10px; border-radius: 999px; cursor: pointer;
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), width 0.35s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.35s;
+}
+#scrollbar.is-empty { opacity: 0; pointer-events: none; }
+#scrollbar:hover, #scrollbar.is-dragging { width: 14px; background: color-mix(in oklch, var(--fg) 6%, transparent); }
+.scrollbar__thumb {
+    position: absolute; top: 0; right: 2px; width: 4px; border-radius: 999px;
+    background: linear-gradient(180deg, #8fd3ff, #5b82f5 55%, var(--brand));
+    opacity: 0.45;
+    transform-origin: 50% 0;
+    will-change: transform;
+    transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1), right 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+#scrollbar.is-active .scrollbar__thumb { opacity: 1; box-shadow: 0 0 12px color-mix(in oklch, #5b82f5 70%, transparent), 0 0 2px #8fd3ff; }
+#scrollbar:hover .scrollbar__thumb, #scrollbar.is-dragging .scrollbar__thumb {
+    width: 8px; right: 3px; opacity: 1; cursor: grab;
+    box-shadow: 0 0 16px color-mix(in oklch, #5b82f5 80%, transparent), 0 0 3px #8fd3ff;
+}
+#scrollbar.is-dragging .scrollbar__thumb { cursor: grabbing; }
+
+@media (prefers-reduced-motion: reduce) {
+    @view-transition { navigation: none; }
+    .will-reveal { opacity: 1; transform: none; }
+    .arr { transition: none; }
+    .scrollbar__thumb { transition: none; }
+}

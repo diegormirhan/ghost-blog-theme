@@ -46,6 +46,91 @@
         });
     }
 
+    /* ---------- Reveal on scroll ---------- */
+    // Only elements that start below the fold get hidden, so nothing already on screen flickers.
+    if (!reduceMotion && 'IntersectionObserver' in window) {
+        var targets = document.querySelectorAll('.feat, .grid > .card, .author, .band, .post-next, .page-head');
+        var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (en) {
+                if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); }
+            });
+        }, { rootMargin: '0px 0px -8% 0px' });
+        var col = 0;
+        [].forEach.call(targets, function (el) {
+            if (el.getBoundingClientRect().top < window.innerHeight) { return; }
+            // cards in the same row come in one after the other
+            el.style.setProperty('--d', el.classList.contains('card') ? (col++ % 2) * 0.08 + 's' : '0s');
+            el.classList.add('will-reveal');
+            io.observe(el);
+        });
+    }
+
+    /* ---------- Scrollbar (desktop mouse only), same as the portfolio ---------- */
+    // Native scrolling stays in charge (wheel, keys, anchors); this only draws the thumb. Speed comes from the
+    // position change between frames, and the stretch relaxes back to zero on its own.
+    var bar = document.getElementById('scrollbar');
+    var thumb = bar && bar.querySelector('.scrollbar__thumb');
+    if (bar && thumb && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+        var root = document.documentElement;
+        root.classList.add('has-scrollbar');
+        var size = 0, travel = 0, max = 0, idle = 0, stretch = 0, lastY = window.scrollY, ticking = false;
+        var measure = function () {
+            var view = window.innerHeight;
+            max = Math.max(0, root.scrollHeight - view);
+            size = max > 0 ? Math.max(48, (view / root.scrollHeight) * (view - 16)) : 0;
+            travel = view - 16 - size;
+            thumb.style.height = size + 'px';
+            bar.classList.toggle('is-empty', max <= 0);
+        };
+        var place = function (velocity) {
+            var y = window.scrollY;
+            var p = max > 0 ? Math.min(1, Math.max(0, y / max)) : 0;
+            var target = reduceMotion ? 0 : Math.min(Math.abs(velocity) / 60, 0.35);
+            stretch += (target - stretch) * 0.35;
+            var grow = size * stretch;
+            var offset = velocity < 0 ? -grow : 0;
+            thumb.style.transform = 'translateY(' + (p * travel + offset) + 'px) scaleY(' + ((size + grow) / Math.max(size, 1)) + ')';
+        };
+        var frame = function () {
+            var y = window.scrollY;
+            var v = y - lastY;
+            lastY = y;
+            place(v);
+            if (Math.abs(v) > 0.5 || stretch > 0.005) { window.requestAnimationFrame(frame); } else { ticking = false; place(0); }
+        };
+        window.addEventListener('scroll', function () {
+            bar.classList.add('is-active');
+            window.clearTimeout(idle);
+            idle = window.setTimeout(function () { bar.classList.remove('is-active'); }, 900);
+            if (!ticking) { ticking = true; window.requestAnimationFrame(frame); }
+        }, { passive: true });
+        measure();
+        place(0);
+        if ('ResizeObserver' in window) { new ResizeObserver(function () { measure(); place(0); }).observe(document.body); }
+        window.addEventListener('resize', function () { measure(); place(0); });
+
+        var dragFrom = -1, scrollFrom = 0;
+        thumb.addEventListener('pointerdown', function (e) {
+            e.preventDefault();
+            thumb.setPointerCapture(e.pointerId);
+            dragFrom = e.clientY;
+            scrollFrom = window.scrollY;
+            bar.classList.add('is-dragging');
+        });
+        thumb.addEventListener('pointermove', function (e) {
+            if (dragFrom < 0 || travel <= 0) { return; }
+            window.scrollTo(0, scrollFrom + ((e.clientY - dragFrom) / travel) * max);
+        });
+        var release = function () { dragFrom = -1; bar.classList.remove('is-dragging'); };
+        thumb.addEventListener('pointerup', release);
+        thumb.addEventListener('pointercancel', release);
+        bar.addEventListener('pointerdown', function (e) {
+            if (e.target === thumb || travel <= 0) { return; }
+            var y = e.clientY - bar.getBoundingClientRect().top - size / 2;
+            window.scrollTo({ top: (Math.min(Math.max(y, 0), travel) / travel) * max, behavior: reduceMotion ? 'auto' : 'smooth' });
+        });
+    }
+
     /* ---------- Project deck ---------- */
     // The step bar of the current card fills with a CSS animation; when it ends, the next card comes forward.
     // Hover, keyboard focus, the pause button and leaving the viewport all pause that one animation, so the

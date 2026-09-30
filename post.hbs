@@ -1,16 +1,17 @@
 {{!< default}}
 
 {{#post}}
+<div class="read-progress" aria-hidden="true"></div>
 <article class="post {{post_class}}">
     <header class="post-head">
         <p class="meta">{{#primary_tag}}<a href="{{url}}">{{name}}</a> · {{/primary_tag}}<time datetime="{{date format="YYYY-MM-DD"}}">{{date format="D MMM YYYY"}}</time> · {{reading_time minute=(t "1 min read") minutes=(t "% min read")}}</p>
-        <h1 class="display post-title">{{title}}</h1>
+        <h1 class="display post-title"><span style="view-transition-name: title-{{id}}">{{title}}</span></h1>
         {{#if custom_excerpt}}<p class="post-lead">{{custom_excerpt}}</p>{{/if}}
     </header>
 
     {{#if feature_image}}
     <figure class="post-cover">
-        <img src="{{img_url feature_image size="xl"}}"
+        <img style="view-transition-name: cover-{{id}}" src="{{img_url feature_image size="xl"}}"
              srcset="{{img_url feature_image size="m"}} 640w, {{img_url feature_image size="l"}} 1000w, {{img_url feature_image size="xl"}} 2000w"
              sizes="(max-width: 1000px) 94vw, 960px" alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}">
         {{#if feature_image_caption}}<figcaption>{{{feature_image_caption}}}</figcaption>{{/if}}

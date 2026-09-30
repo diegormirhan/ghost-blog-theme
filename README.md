@@ -85,6 +85,7 @@ assets/fonts/          self-hosted woff2: Geist, Bricolage Grotesque, JetBrains 
 
 ## Changelog
 
+- 2.2.0: motion layer: page transitions (View Transitions, the card cover and title morph into the post), reading progress bar on posts (scroll-driven CSS), posts revealing on scroll, arrows that slide on hover, and the portfolio's custom scrollbar (desktop mouse only). All off for prefers-reduced-motion.
 - 2.1.0: faster project deck (3.6 s per project); the site title in the header gets the portfolio hover (letters roll up in a wave, the dot hops and lights up).
 - 2.0.1: the arrow in the deck caption no longer wraps onto its own line.
 - 2.0.0: new look.
