@@ -24,7 +24,7 @@ Ghost theme for [blog.diegomirhan.com](https://blog.diegomirhan.com), the blog t
 - Text contrast is at least 4.5:1 in both modes. On gradients, the light spots sit behind empty space, so white text stays at about 7:1.
 - Visible focus on every control, with a white outline on blue blocks.
 - Targets are at least 24px tall, including small text links in the header and footer.
-- The email field has a visible label, not just a placeholder.
+- The email field keeps a label for screen readers; the visible hint is the placeholder.
 - Mobile menu: `aria-expanded`, and Escape closes it and returns focus to the button.
 - Carousel: pause button, keyboard arrows, and a pause on hover, on focus, when the tab is hidden or when it's off screen. `prefers-reduced-motion` stops every animation.
 
@@ -73,6 +73,7 @@ assets/fonts/          self-hosted woff2 (Bricolage Grotesque, JetBrains Mono)
 
 ## Changelog
 
+- 1.3.4: wider post titles (30ch, balanced lines); email field shows the hint as placeholder, label kept for screen readers.
 - 1.3.3: bookmark cards readable in dark mode (Ghost card CSS forced a white card with 70% faded text, 2.2:1 contrast; now 7.5:1).
 - 1.3.2: the header "Subscribe" button opens the Ghost Portal popup on every page again (the hero form stays).
 - 1.3.1: Ghost popups (Portal, search) no longer show a grey box around them in dark mode.
