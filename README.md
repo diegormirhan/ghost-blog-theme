@@ -12,7 +12,7 @@ Ghost theme for [blog.diegomirhan.com](https://blog.diegomirhan.com), the blog t
 
 - **Hero on the home page:** headline, a short intro, "See portfolio" and "Talk to me" (email), and the newsletter signup. The texts are editable in Ghost Admin.
 - **Project deck.** Next to the hero, five real screenshots (PolyRAG, AeroPulse, RasterScope, ToolHaven, Manim Editor) are stacked like cards.
-  - Every 5.5 seconds the front card slides away and the next one comes forward.
+  - Every 3.6 seconds the front card slides away and the next one comes forward.
   - The caption links to the project page on the portfolio.
   - Step bars show the timing, and clicking a bar, or a card peeking from behind, jumps to that project.
   - On desktop the deck tilts slightly toward the mouse.
@@ -85,6 +85,7 @@ assets/fonts/          self-hosted woff2: Geist, Bricolage Grotesque, JetBrains 
 
 ## Changelog
 
+- 2.1.0: faster project deck (3.6 s per project); the site title in the header gets the portfolio hover (letters roll up in a wave, the dot hops and lights up).
 - 2.0.1: the arrow in the deck caption no longer wraps onto its own line.
 - 2.0.0: new look.
   - Removed: the gradient frame, the gradient hero, the isometric illustration, the carousel, uppercase condensed titles and pill buttons.

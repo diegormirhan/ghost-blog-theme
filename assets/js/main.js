@@ -3,6 +3,27 @@
 
     var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+    /* ---------- Brand hover: split the site title into letters (CSS does the animation) ---------- */
+    var brand = document.querySelector('[data-brand]');
+    var brandText = brand && brand.querySelector('.brand-text');
+    if (brandText) {
+        var title = brandText.textContent;
+        brand.setAttribute('aria-label', title);
+        brandText.setAttribute('aria-hidden', 'true');
+        brandText.textContent = '';
+        var k = 0;
+        Array.from(title).forEach(function (ch) {
+            if (ch === ' ') { brandText.appendChild(document.createTextNode(' ')); return; }
+            var outer = document.createElement('span');
+            var inner = document.createElement('span');
+            outer.className = 'brand-char';
+            outer.style.setProperty('--i', String(k++));
+            inner.textContent = ch;
+            outer.appendChild(inner);
+            brandText.appendChild(outer);
+        });
+    }
+
     /* ---------- Mobile menu ---------- */
     var toggle = document.querySelector('[data-menu-toggle]');
     var panel = document.getElementById('hd-panel');
