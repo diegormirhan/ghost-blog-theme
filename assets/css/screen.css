@@ -97,6 +97,9 @@ body {
 }
 
 [hidden] { display: none !important; }
+/* Ghost's Portal and search popups are transparent iframes with light pages inside. On a dark page Chrome
+   paints an opaque backdrop behind any iframe whose color-scheme is not "light" (the grey box around popups). */
+iframe { color-scheme: light; }
 img { max-width: 100%; height: auto; display: block; }
 a { color: inherit; text-decoration: none; }
 h1, h2, h3, h4, p, ol, ul, figure { margin: 0; }
