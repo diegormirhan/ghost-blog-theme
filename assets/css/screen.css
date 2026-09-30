@@ -569,6 +569,9 @@ iframe { color-scheme: light; }
 /* the cover travels from the home card to the post without fading: the old image stays fully visible under the
    new one, which covers it as soon as it is painted (a crossfade showed an empty box while the post image loaded) */
 ::view-transition-old(*.cover), ::view-transition-new(*.cover) { animation: none; height: 100%; object-fit: cover; }
+/* covers that exist on only one side (the other cards of the home page) still fade out or in */
+::view-transition-old(*.cover):only-child { animation: vt-out 0.2s ease both; }
+::view-transition-new(*.cover):only-child { animation: vt-in 0.35s cubic-bezier(0.16, 1, 0.3, 1) 0.05s both; }
 @keyframes vt-out { to { opacity: 0; } }
 @keyframes vt-in { from { opacity: 0; transform: translateY(10px); } }
 
