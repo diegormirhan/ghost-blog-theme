@@ -383,6 +383,14 @@ iframe { color-scheme: light; }
 /* the grid is deliberately smaller than the big post above it: 3 columns on desktop, 2 on tablets and phones */
 .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px 32px; padding-block: 48px 24px; }
 .home-featured .feat { border-bottom: 0; padding-bottom: 8px; }
+/* no featured post: the first card of the latest posts becomes the big one, laid out like .feat */
+main:not(:has(.home-featured)) .home-latest .grid { padding-top: 8px; }
+main:not(:has(.home-featured)) .home-latest .grid > .card:first-child { grid-column: 1 / -1; padding-bottom: 40px; border-bottom: 1px solid var(--line); }
+main:not(:has(.home-featured)) .home-latest .grid > .card:first-child .card-title { font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.1; }
+main:not(:has(.home-featured)) .home-latest .grid > .card:first-child .card-ex { -webkit-line-clamp: 4; font-size: 1.0625rem; color: var(--fg-2); }
+@media (min-width: 901px) {
+    main:not(:has(.home-featured)) .home-latest .grid > .card:first-child { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 48px; align-items: center; }
+}
 .page-posts .grid { padding-top: 8px; }
 /* the picture on top at full width and the text under it: a wide cover next to a long title left a tall card
    with a small picture and empty space under it, worst on phones */
