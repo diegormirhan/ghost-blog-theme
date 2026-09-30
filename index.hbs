@@ -3,18 +3,40 @@
 {{#is "home"}}
     {{> hero}}
 
-    <section class="wrap home-posts" aria-labelledby="latest-title">
-        <h2 class="display section-title" id="latest-title">{{t "Latest posts"}}</h2>
-        {{#foreach posts limit="1"}}
-            {{> post-feature}}
-        {{/foreach}}
-        <div class="grid">
-            {{#foreach posts from="2"}}
-                {{> post-card}}
-            {{/foreach}}
-        </div>
-        {{pagination}}
-    </section>
+    {{!-- A post marked "Feature this post" in Ghost gets the big slot; without one, the latest post takes it.
+          Either way the rest is a uniform grid, so nothing competes with the big one. --}}
+    {{#get "posts" filter="featured:true" limit="1" as |featured|}}
+        {{#if featured}}
+            <section class="wrap home-posts home-featured" aria-labelledby="featured-title">
+                <h2 class="display section-title" id="featured-title">{{t "Featured"}}</h2>
+                {{#foreach featured}}
+                    {{> post-feature}}
+                {{/foreach}}
+            </section>
+            <section class="wrap home-posts" aria-labelledby="latest-title">
+                <h2 class="display section-title" id="latest-title">{{t "Latest posts"}}</h2>
+                <div class="grid">
+                    {{#foreach @root.posts}}
+                        {{#unless featured}}{{> post-card}}{{/unless}}
+                    {{/foreach}}
+                </div>
+                {{pagination}}
+            </section>
+        {{else}}
+            <section class="wrap home-posts" aria-labelledby="latest-title">
+                <h2 class="display section-title" id="latest-title">{{t "Latest posts"}}</h2>
+                {{#foreach @root.posts limit="1"}}
+                    {{> post-feature}}
+                {{/foreach}}
+                <div class="grid">
+                    {{#foreach @root.posts from="2"}}
+                        {{> post-card}}
+                    {{/foreach}}
+                </div>
+                {{pagination}}
+            </section>
+        {{/if}}
+    {{/get}}
 {{else}}
     <section class="wrap page-posts">
         <header class="page-head">

@@ -26,7 +26,7 @@
 
     /* ---------- Theme toggle ---------- */
     // The choice is saved and applied again in <head> before the first paint (default.hbs). The switch is a
-    // cross-fade through a view transition; without support or with reduced motion it is instant.
+    // circle growing from the button (a view transition); without support or with reduced motion it is instant.
     var themeBtn = document.querySelector('[data-theme-toggle]');
     if (themeBtn) {
         var rootEl = document.documentElement;
@@ -45,16 +45,28 @@
                 labelTheme();
             };
             if (reduceMotion || !document.startViewTransition) { apply(); return; }
+            // the new theme grows in a circle from the button until it covers the farthest corner
+            var r = themeBtn.getBoundingClientRect();
+            var x = r.left + r.width / 2, y = r.top + r.height / 2;
+            var end = Math.hypot(Math.max(x, window.innerWidth - x), Math.max(y, window.innerHeight - y));
             rootEl.classList.add('theme-fade');
-            document.startViewTransition(apply).finished.finally(function () { rootEl.classList.remove('theme-fade'); });
+            var vt = document.startViewTransition(apply);
+            vt.ready.then(function () {
+                rootEl.animate(
+                    { clipPath: ['circle(0px at ' + x + 'px ' + y + 'px)', 'circle(' + end + 'px at ' + x + 'px ' + y + 'px)'] },
+                    { duration: 700, easing: 'cubic-bezier(0.65, 0, 0.35, 1)', pseudoElement: '::view-transition-new(root)' }
+                );
+            });
+            vt.finished.finally(function () { rootEl.classList.remove('theme-fade'); });
         });
     }
 
     /* ---------- Table of contents ("Neste post") ---------- */
-    // Built from the post's h2 headings when there are 3 or more; Ghost already gives each heading an id.
+    // Posts from the pipeline carry their own table of contents in the HTML (better for search engines). For
+    // the others, one is built here from the h2 headings (3 or more, "Fontes" left out); Ghost gives them ids.
     var toc = document.querySelector('[data-toc]');
-    var tocHeads = document.querySelectorAll('.gh-content > h2');
-    if (toc && tocHeads.length >= 3) {
+    var tocHeads = [].filter.call(document.querySelectorAll('.gh-content > h2'), function (h) { return h.textContent.trim() !== 'Fontes'; });
+    if (toc && tocHeads.length >= 3 && !document.querySelector('.gh-content .toc')) {
         var tocList = toc.querySelector('ol');
         [].forEach.call(tocHeads, function (h, i) {
             if (!h.id) { h.id = 'secao-' + (i + 1); }
