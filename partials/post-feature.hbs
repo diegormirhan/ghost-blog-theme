@@ -1,7 +1,7 @@
 <article class="feat {{post_class}}">
     <a class="feat-img" href="{{url}}" tabindex="-1" aria-hidden="true">
         {{#if feature_image}}
-            <img style="view-transition-name: cover-{{id}}" src="{{img_url feature_image size="l"}}"
+            <img style="view-transition-name: cover-{{id}}; view-transition-class: cover" src="{{img_url feature_image size="l"}}"
                  srcset="{{img_url feature_image size="m"}} 640w, {{img_url feature_image size="l"}} 1000w, {{img_url feature_image size="xl"}} 2000w"
                  sizes="(max-width: 900px) 92vw, 640px" alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}">
         {{else}}

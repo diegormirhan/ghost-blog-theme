@@ -390,7 +390,7 @@ iframe { color-scheme: light; }
 .post-title { font-size: clamp(2rem, 4.4vw, 2.75rem); line-height: 1.12; }
 .post-lead { font-size: 1.25rem; line-height: 1.55; color: var(--fg-2); }
 .post-cover { max-width: 1000px; margin: 36px auto 0; padding-inline: var(--gutter); }
-.post-cover img { width: 100%; aspect-ratio: 1.9; object-fit: cover; border-radius: var(--r); }
+.post-cover img { width: 100%; aspect-ratio: 1.9; object-fit: cover; border-radius: var(--r); background-size: cover; background-position: center; }
 .post-cover figcaption { margin-top: 10px; text-align: center; font-size: 0.875rem; color: var(--muted); }
 
 .gh-content {
@@ -566,6 +566,9 @@ iframe { color-scheme: light; }
 ::view-transition-group(*) { animation-duration: 0.45s; animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1); }
 ::view-transition-old(root) { animation: vt-out 0.2s ease both; }
 ::view-transition-new(root) { animation: vt-in 0.35s cubic-bezier(0.16, 1, 0.3, 1) 0.05s both; }
+/* the cover travels from the home card to the post without fading: the old image stays fully visible under the
+   new one, which covers it as soon as it is painted (a crossfade showed an empty box while the post image loaded) */
+::view-transition-old(*.cover), ::view-transition-new(*.cover) { animation: none; height: 100%; object-fit: cover; }
 @keyframes vt-out { to { opacity: 0; } }
 @keyframes vt-in { from { opacity: 0; transform: translateY(10px); } }
 
