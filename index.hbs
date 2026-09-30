@@ -10,8 +10,9 @@
         {{#if featured}}
             <section class="wrap home-posts home-featured" aria-labelledby="featured-title">
                 <h2 class="display section-title" id="featured-title">{{t "Featured"}}</h2>
+                {{!-- data-featured-url: the portfolio (diegomirhan.com) reads it to list this post first --}}
                 {{#foreach featured}}
-                    {{> post-feature}}
+                    <div data-featured-url="{{url absolute="true"}}">{{> post-feature}}</div>
                 {{/foreach}}
             </section>
         {{/if}}
