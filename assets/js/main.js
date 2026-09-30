@@ -24,6 +24,50 @@
         });
     }
 
+    /* ---------- Theme toggle ---------- */
+    // The choice is saved and applied again in <head> before the first paint (default.hbs). The switch is a
+    // cross-fade through a view transition; without support or with reduced motion it is instant.
+    var themeBtn = document.querySelector('[data-theme-toggle]');
+    if (themeBtn) {
+        var rootEl = document.documentElement;
+        var sysLight = window.matchMedia('(prefers-color-scheme: light)');
+        var currentTheme = function () { return rootEl.dataset.theme || (sysLight.matches ? 'light' : 'dark'); };
+        var labelTheme = function () {
+            themeBtn.setAttribute('aria-label', themeBtn.getAttribute(currentTheme() === 'dark' ? 'data-label-light' : 'data-label-dark'));
+        };
+        labelTheme();
+        sysLight.addEventListener('change', labelTheme);
+        themeBtn.addEventListener('click', function () {
+            var next = currentTheme() === 'dark' ? 'light' : 'dark';
+            var apply = function () {
+                rootEl.dataset.theme = next;
+                try { localStorage.setItem('theme', next); } catch (e) { /* private mode: the choice lasts this page */ }
+                labelTheme();
+            };
+            if (reduceMotion || !document.startViewTransition) { apply(); return; }
+            rootEl.classList.add('theme-fade');
+            document.startViewTransition(apply).finished.finally(function () { rootEl.classList.remove('theme-fade'); });
+        });
+    }
+
+    /* ---------- Table of contents ("Neste post") ---------- */
+    // Built from the post's h2 headings when there are 3 or more; Ghost already gives each heading an id.
+    var toc = document.querySelector('[data-toc]');
+    var tocHeads = document.querySelectorAll('.gh-content > h2');
+    if (toc && tocHeads.length >= 3) {
+        var tocList = toc.querySelector('ol');
+        [].forEach.call(tocHeads, function (h, i) {
+            if (!h.id) { h.id = 'secao-' + (i + 1); }
+            var li = document.createElement('li');
+            var a = document.createElement('a');
+            a.href = '#' + h.id;
+            a.textContent = h.textContent;
+            li.appendChild(a);
+            tocList.appendChild(li);
+        });
+        toc.hidden = false;
+    }
+
     /* ---------- Mobile menu ---------- */
     var toggle = document.querySelector('[data-menu-toggle]');
     var panel = document.getElementById('hd-panel');

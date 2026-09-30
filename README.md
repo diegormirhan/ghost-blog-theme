@@ -90,6 +90,7 @@ assets/fonts/          self-hosted woff2: Geist, Bricolage Grotesque, JetBrains 
 - 2.3.2: the custom scrollbar thumb keeps the same size while scrolling (no more stretch with speed).
 - 2.3.3: the cover travels from the home page to the post without fading out and back in; the post starts with the image sizes the home page already loaded.
 - 2.3.4: post images on the home page keep the covers' own 1600:840 shape, so nothing is cropped; cards are a little wider.
+- 2.4.0: light/dark toggle in the header (saved, with a cross-fade); "In this post" table of contents with links to the sections; home cards with the picture on top at full width.
 - 2.2.0: motion layer: page transitions (View Transitions, the card cover and title morph into the post), reading progress bar on posts (scroll-driven CSS), posts revealing on scroll, arrows that slide on hover, and the portfolio's custom scrollbar (desktop mouse only). All off for prefers-reduced-motion.
 - 2.1.0: faster project deck (3.6 s per project); the site title in the header gets the portfolio hover (letters roll up in a wave, the dot hops and lights up).
 - 2.0.1: the arrow in the deck caption no longer wraps onto its own line.
