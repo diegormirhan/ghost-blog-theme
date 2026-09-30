@@ -25,130 +25,99 @@
         });
     }
 
-    /* ---------- Hero animation: pause button + pause while off screen ---------- */
-    var hero = document.querySelector('[data-hero]');
-    var heroBtn = hero && hero.querySelector('[data-hero-pause]');
-    if (hero && heroBtn) {
-        heroBtn.addEventListener('click', function () {
-            var paused = hero.classList.toggle('is-paused');
-            heroBtn.setAttribute('aria-pressed', paused ? 'true' : 'false');
-            heroBtn.setAttribute('aria-label', heroBtn.getAttribute(paused ? 'data-l-play' : 'data-l-pause'));
-        });
-        if ('IntersectionObserver' in window) {
-            new IntersectionObserver(function (entries) {
-                hero.classList.toggle('is-offscreen', !entries[0].isIntersecting);
-            }).observe(hero);
-        }
-    }
+    /* ---------- Project deck ---------- */
+    // The step bar of the current card fills with a CSS animation; when it ends, the next card comes forward.
+    // Hover, keyboard focus, the pause button and leaving the viewport all pause that one animation, so the
+    // timing can never drift. With reduced motion the animation does not exist and nothing auto-advances.
+    var deck = document.querySelector('[data-deck]');
+    if (!deck) { return; }
+    var cards = [].slice.call(deck.querySelectorAll('[data-deck-card]'));
+    var stage = deck.querySelector('[data-deck-stage]');
+    var stepsBox = deck.querySelector('[data-deck-steps]');
+    var pauseBtn = deck.querySelector('[data-deck-pause]');
+    var link = deck.querySelector('[data-deck-link]');
+    var nameEl = deck.querySelector('[data-deck-name]');
+    var descEl = deck.querySelector('[data-deck-desc]');
+    var n = cards.length;
+    var current = 0;
+    if (n < 2) { return; }
 
-    /* ---------- Carousel ---------- */
-    var ICONS =
-        '<svg class="ip" viewBox="0 0 10 10" aria-hidden="true"><rect x="1" y="0.5" width="3" height="9"/><rect x="6" y="0.5" width="3" height="9"/></svg>' +
-        '<svg class="ipl" viewBox="0 0 10 10" aria-hidden="true"><path d="M1.5 0.5v9l7.5-4.5z"/></svg>';
-
-    var banner = document.querySelector('[data-carousel]');
-    if (!banner) { return; }
-
-    var slides = [].slice.call(banner.querySelectorAll('[data-slide]'));
-    var dots = banner.querySelector('.dots');
-    var pp = banner.querySelector('.pp');
-    var arrows = [].slice.call(banner.querySelectorAll('[data-dir]'));
-    if (!slides.length) { banner.hidden = true; return; }
-
-    var L = {
-        pause: banner.getAttribute('data-l-pause') || 'Pause carousel',
-        play: banner.getAttribute('data-l-play') || 'Play carousel',
-        goto: banner.getAttribute('data-l-goto') || 'Go to item'
-    };
-
-    var seconds = parseInt(banner.getAttribute('data-seconds'), 10);
-    var duration = seconds > 0 ? seconds * 1000 : 0;
-    var index = 0;
-    var timer = null;
-    var playing = duration > 0 && !reduceMotion;
-    var hover = false;
-    var focus = false;
-    var visible = true;
-
-    banner.classList.add('is-ready');
-
-    if (slides.length < 2) {
-        // Nothing to rotate: hide the controls, keep the animated background.
-        dots.hidden = true;
-        arrows.forEach(function (a) { a.hidden = true; });
-        go(0);
-        return;
-    }
-
-    slides.forEach(function (_, k) {
+    var steps = cards.map(function (card, k) {
         var b = document.createElement('button');
         b.type = 'button';
-        b.setAttribute('aria-label', L.goto + ' ' + (k + 1));
-        b.addEventListener('click', function () { go(k); });
-        dots.appendChild(b);
+        b.className = 'deck-step';
+        b.setAttribute('aria-label', deck.getAttribute('data-l-show') + ': ' + card.getAttribute('data-name'));
+        b.addEventListener('click', function () { show(k, true); });
+        b.addEventListener('animationend', function () { if (k === current) { show((current + 1) % n, false); } });
+        stepsBox.appendChild(b);
+        return b;
     });
 
-    if (duration === 0) { pp.hidden = true; }
-    pp.innerHTML = ICONS;
-
-    function renderState() {
-        banner.classList.toggle('paused', !visible || !playing);
-        pp.setAttribute('aria-label', playing ? L.pause : L.play);
-        pp.setAttribute('aria-pressed', playing ? 'false' : 'true');
-    }
-
-    function schedule() {
-        clearTimeout(timer);
-        if (playing && !hover && !focus && visible && !document.hidden && duration) {
-            timer = setTimeout(function () { go(index + 1); }, duration);
-        }
-    }
-
-    function go(n) {
-        index = (n + slides.length) % slides.length;
-        slides.forEach(function (s, k) {
-            s.classList.toggle('on', k === index);
-            s.setAttribute('aria-hidden', k === index ? 'false' : 'true');
+    function render() {
+        cards.forEach(function (card, k) {
+            var pos = (k - current + n) % n;
+            card.setAttribute('data-pos', String(pos));
+            card.setAttribute('aria-hidden', pos === 0 ? 'false' : 'true');
+            card.tabIndex = pos === 0 ? 0 : -1;
         });
-        [].forEach.call(dots.querySelectorAll('button:not(.pp)'), function (d, k) {
-            d.setAttribute('aria-current', k === index ? 'true' : 'false');
+        steps.forEach(function (s, k) {
+            s.classList.toggle('is-done', k < current);
+            s.removeAttribute('aria-current');
         });
-        banner.setAttribute('data-tone', slides[index].getAttribute('data-tone') || '1');
-        schedule();
+        // restart the fill animation on the active step
+        void steps[current].offsetWidth;
+        steps[current].setAttribute('aria-current', 'true');
+        var card = cards[current];
+        link.href = card.href;
+        nameEl.textContent = card.getAttribute('data-name');
+        descEl.textContent = card.getAttribute('data-desc');
     }
 
-    arrows.forEach(function (b) {
-        b.addEventListener('click', function () { go(index + parseInt(b.getAttribute('data-dir'), 10)); });
+    function show(k, byUser) {
+        if (k === current) { return; }
+        var leaving = cards[current];
+        leaving.classList.add('is-leaving');
+        window.setTimeout(function () { leaving.classList.remove('is-leaving'); }, 700);
+        current = k;
+        // announce only what the visitor asked for, never the automatic rotation
+        link.setAttribute('aria-live', byUser ? 'polite' : 'off');
+        render();
+    }
+
+    // a card peeking from behind comes forward on click instead of opening its link
+    cards.forEach(function (card, k) {
+        card.addEventListener('click', function (e) {
+            if (k !== current) { e.preventDefault(); show(k, true); }
+        });
     });
 
-    pp.addEventListener('click', function () {
-        playing = !playing;
-        renderState();
-        schedule();
-    });
-
-    banner.addEventListener('mouseenter', function () { hover = true; schedule(); });
-    banner.addEventListener('mouseleave', function () { hover = false; schedule(); });
-    banner.addEventListener('focusin', function (e) {
-        focus = !!(e.target.matches && e.target.matches(':focus-visible'));
-        schedule();
-    });
-    banner.addEventListener('focusout', function () { focus = false; schedule(); });
-    document.addEventListener('visibilitychange', schedule);
-
-    banner.addEventListener('keydown', function (e) {
-        if (e.key === 'ArrowLeft') { go(index - 1); }
-        if (e.key === 'ArrowRight') { go(index + 1); }
+    pauseBtn.addEventListener('click', function () {
+        var paused = deck.classList.toggle('is-paused');
+        pauseBtn.setAttribute('aria-pressed', paused ? 'true' : 'false');
+        pauseBtn.setAttribute('aria-label', deck.getAttribute(paused ? 'data-l-play' : 'data-l-pause'));
     });
 
     if ('IntersectionObserver' in window) {
         new IntersectionObserver(function (entries) {
-            visible = entries[0].isIntersecting;
-            renderState();
-            schedule();
-        }).observe(banner);
+            deck.classList.toggle('is-offscreen', !entries[0].isIntersecting);
+        }).observe(deck);
     }
 
-    renderState();
-    go(0);
+    // a light tilt that follows the mouse (desktop pointers only, never with reduced motion)
+    if (!reduceMotion && window.matchMedia('(pointer: fine)').matches) {
+        stage.addEventListener('pointermove', function (e) {
+            var r = stage.getBoundingClientRect();
+            var x = (e.clientX - r.left) / r.width - 0.5;
+            var y = (e.clientY - r.top) / r.height - 0.5;
+            stage.style.setProperty('--ry', (x * 6).toFixed(2) + 'deg');
+            stage.style.setProperty('--rx', (-y * 5).toFixed(2) + 'deg');
+        });
+        stage.addEventListener('pointerleave', function () {
+            stage.style.setProperty('--ry', '0deg');
+            stage.style.setProperty('--rx', '0deg');
+        });
+    }
+
+    deck.classList.add('is-ready');
+    render();
 })();

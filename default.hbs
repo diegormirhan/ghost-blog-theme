@@ -6,6 +6,7 @@
     <meta name="color-scheme" content="dark light">
     <title>{{meta_title}}</title>
 
+    <link rel="preload" href="{{asset "fonts/geist-latin-wght-normal.woff2"}}" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="{{asset "fonts/bricolage-grotesque-latin-standard-normal.woff2"}}" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="{{asset "css/screen.css"}}">
 
@@ -14,15 +15,13 @@
 <body class="{{body_class}}">
     <a class="skip" href="#main">{{t "Skip to content"}}</a>
 
-    <div class="shell">
-        {{> header}}
+    {{> header}}
 
-        <main id="main" class="site-main">
-            {{{body}}}
-        </main>
+    <main id="main" class="site-main">
+        {{{body}}}
+    </main>
 
-        {{> footer}}
-    </div>
+    {{> footer}}
 
     <script src="{{asset "js/main.js"}}" defer></script>
     {{ghost_foot}}

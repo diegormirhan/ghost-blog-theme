@@ -1,8 +1,7 @@
 {{!< default}}
 
-<section class="page-head error-page">
-    <div class="mono muted">{{t "Error"}}</div>
-    <h1 class="display xl">{{statusCode}}</h1>
-    <p class="lead muted">{{message}}</p>
-    <p><a class="pill solid" href="{{@site.url}}">{{t "Back to the blog"}}</a></p>
+<section class="wrap page-head error-page">
+    <p class="meta">{{t "Error"}} {{statusCode}}</p>
+    <h1 class="display page-title">{{message}}</h1>
+    <p><a class="btn btn-solid" href="{{@site.url}}">{{t "Back to the blog"}}</a></p>
 </section>

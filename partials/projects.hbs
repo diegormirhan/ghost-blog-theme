@@ -1,0 +1,42 @@
+{{!-- Real screenshots of Diego's projects as a card deck. Without JS it is a static stack with the first
+      project in front; main.js rotates it (see "Project deck"). Only the front card is focusable. --}}
+<div class="deck" data-deck data-l-pause="{{t "Pause animation"}}" data-l-play="{{t "Play animation"}}" data-l-show="{{t "Show project"}}">
+    <div class="deck-stage" data-deck-stage>
+        <a class="deck-card" data-deck-card data-pos="0" href="{{@custom.main_site_url}}/projetos/polyrag/" rel="noopener"
+           data-name="PolyRAG" data-desc="{{t "Federated local RAG"}}">
+            <img src="{{asset "images/projects/polyrag-1200.webp"}}" srcset="{{asset "images/projects/polyrag-640.webp"}} 640w, {{asset "images/projects/polyrag-1200.webp"}} 1200w"
+                 sizes="(max-width: 900px) 86vw, 500px" width="1200" height="900" alt="{{t "PolyRAG chat with the route scores and the span waterfall"}}" fetchpriority="high">
+        </a>
+        <a class="deck-card" data-deck-card data-pos="1" href="{{@custom.main_site_url}}/projetos/aeropulse/" rel="noopener" tabindex="-1" aria-hidden="true"
+           data-name="AeroPulse" data-desc="{{t "Predictive maintenance for turbines"}}">
+            <img src="{{asset "images/projects/aeropulse-1200.webp"}}" srcset="{{asset "images/projects/aeropulse-640.webp"}} 640w, {{asset "images/projects/aeropulse-1200.webp"}} 1200w"
+                 sizes="(max-width: 900px) 86vw, 500px" width="1200" height="769" alt="{{t "AeroPulse fleet dashboard"}}">
+        </a>
+        <a class="deck-card" data-deck-card data-pos="2" href="{{@custom.main_site_url}}/projetos/rasterscope/" rel="noopener" tabindex="-1" aria-hidden="true"
+           data-name="RasterScope" data-desc="{{t "Land cover change from satellite imagery"}}">
+            <img src="{{asset "images/projects/rasterscope-1200.webp"}}" srcset="{{asset "images/projects/rasterscope-640.webp"}} 640w, {{asset "images/projects/rasterscope-1200.webp"}} 1200w"
+                 sizes="(max-width: 900px) 86vw, 500px" width="1200" height="750" alt="{{t "Before and after comparison in RasterScope"}}">
+        </a>
+        <a class="deck-card" data-deck-card data-pos="3" href="{{@custom.main_site_url}}/projetos/toolhaven-desktop/" rel="noopener" tabindex="-1" aria-hidden="true"
+           data-name="ToolHaven" data-desc="{{t "Tool hub for Windows"}}">
+            <img src="{{asset "images/projects/toolhaven-1200.webp"}}" srcset="{{asset "images/projects/toolhaven-640.webp"}} 640w, {{asset "images/projects/toolhaven-1200.webp"}} 1200w"
+                 sizes="(max-width: 900px) 86vw, 500px" width="1200" height="806" alt="{{t "ToolHaven catalog in the dark theme"}}">
+        </a>
+        <a class="deck-card" data-deck-card data-pos="4" href="{{@custom.main_site_url}}/projetos/manim-editor/" rel="noopener" tabindex="-1" aria-hidden="true"
+           data-name="Manim Editor" data-desc="{{t "Visual math animations"}}">
+            <img src="{{asset "images/projects/manim-editor-1200.webp"}}" srcset="{{asset "images/projects/manim-editor-640.webp"}} 640w, {{asset "images/projects/manim-editor-1200.webp"}} 1200w"
+                 sizes="(max-width: 900px) 86vw, 500px" width="1200" height="833" alt="{{t "Editor with a rendered integral and the timeline"}}">
+        </a>
+    </div>
+
+    <div class="deck-bar">
+        <a class="deck-cap" data-deck-link href="{{@custom.main_site_url}}/projetos/polyrag/" rel="noopener">
+            <b data-deck-name>PolyRAG</b> <span data-deck-desc>{{t "Federated local RAG"}}</span> <span aria-hidden="true">↗</span>
+        </a>
+        <div class="deck-steps" data-deck-steps role="group" aria-label="{{t "Choose project"}}"></div>
+        <button type="button" class="icon-btn deck-pause" data-deck-pause aria-pressed="false" aria-label="{{t "Pause animation"}}">
+            <svg class="ip" viewBox="0 0 10 10" aria-hidden="true"><rect x="1.5" y="1" width="2.5" height="8"/><rect x="6" y="1" width="2.5" height="8"/></svg>
+            <svg class="ipl" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 1v8l7-4z"/></svg>
+        </button>
+    </div>
+</div>

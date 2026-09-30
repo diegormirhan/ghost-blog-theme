@@ -1,11 +1,13 @@
-<footer class="ft mono">
-    <span>© {{date format="YYYY"}} {{@site.title}}</span>
-    <span class="ft-links">
-        {{#if @custom.main_site_url}}<a href="{{@custom.main_site_url}}" rel="noopener">{{t "Portfolio"}}</a>{{/if}}
-        {{#if @custom.contact_email}}<a href="mailto:{{@custom.contact_email}}">{{@custom.contact_email}}</a>{{/if}}
-        {{#if @custom.github_url}}<a href="{{@custom.github_url}}" rel="noopener">GitHub</a>{{/if}}
-        {{#if @custom.linkedin_url}}<a href="{{@custom.linkedin_url}}" rel="noopener">LinkedIn</a>{{/if}}
-        {{#if @custom.medium_url}}<a href="{{@custom.medium_url}}" rel="noopener">Medium</a>{{/if}}
-        <a href="{{@site.url}}/rss/">RSS</a>
-    </span>
+<footer class="ft">
+    <div class="wrap ft-in">
+        <span>© {{date format="YYYY"}} {{@site.title}}</span>
+        <span class="ft-links">
+            {{#if @custom.main_site_url}}<a href="{{@custom.main_site_url}}" rel="noopener">{{t "Portfolio"}}</a>{{/if}}
+            {{#if @custom.contact_email}}<a href="mailto:{{@custom.contact_email}}">{{@custom.contact_email}}</a>{{/if}}
+            {{#if @custom.github_url}}<a href="{{@custom.github_url}}" rel="noopener">GitHub</a>{{/if}}
+            {{#if @custom.linkedin_url}}<a href="{{@custom.linkedin_url}}" rel="noopener">LinkedIn</a>{{/if}}
+            {{#if @custom.medium_url}}<a href="{{@custom.medium_url}}" rel="noopener">Medium</a>{{/if}}
+            <a href="{{@site.url}}/rss/">RSS</a>
+        </span>
+    </div>
 </footer>

@@ -1,9 +1,11 @@
-<section class="hero" aria-labelledby="hero-title" data-hero>
-    {{> hero-art}}
+<section class="hero wrap" aria-labelledby="hero-title">
     <div class="hero-text">
         <h1 class="display hero-title" id="hero-title">{{#if @custom.hero_title}}{{@custom.hero_title}}{{else}}{{@site.title}}{{/if}}</h1>
-        {{#if @custom.hero_subtitle}}<p class="lead hero-sub">{{@custom.hero_subtitle}}</p>{{/if}}
-        {{> cta-links}}
+        {{#if @custom.hero_subtitle}}<p class="hero-sub">{{@custom.hero_subtitle}}</p>{{/if}}
+        <div class="hero-cta">
+            {{#if @custom.main_site_url}}<a class="btn btn-light" href="{{@custom.main_site_url}}" rel="noopener">{{t "See portfolio"}}</a>{{/if}}
+            {{#if @custom.contact_email}}<a class="btn" href="mailto:{{@custom.contact_email}}">{{t "Talk to me"}}</a>{{/if}}
+        </div>
         {{#if @site.members_enabled}}
             {{#unless @member}}
             <div class="hero-news" id="assinar">
@@ -13,8 +15,5 @@
             {{/unless}}
         {{/if}}
     </div>
-    <button type="button" class="hero-pause" aria-pressed="false" data-hero-pause data-l-pause="{{t "Pause animation"}}" data-l-play="{{t "Play animation"}}" aria-label="{{t "Pause animation"}}">
-        <svg class="ip" viewBox="0 0 10 10" aria-hidden="true"><rect x="1" y="0.5" width="3" height="9"/><rect x="6" y="0.5" width="3" height="9"/></svg>
-        <svg class="ipl" viewBox="0 0 10 10" aria-hidden="true"><path d="M1.5 0.5v9l7.5-4.5z"/></svg>
-    </button>
+    {{> projects}}
 </section>

@@ -1,6 +1,6 @@
-{{!-- Portfolio + contact buttons. Shared by the home hero and the author box at the end of posts. --}}
+{{!-- Portfolio + contact buttons in the author box at the end of posts. --}}
 <div class="cta">
-    {{#if @custom.main_site_url}}<a class="pill solid" href="{{@custom.main_site_url}}" rel="noopener">{{t "See portfolio"}}</a>{{/if}}
-    {{#if @custom.contact_email}}<a class="pill" href="mailto:{{@custom.contact_email}}">{{t "Talk to me"}}</a>{{/if}}
-    {{#if @custom.linkedin_url}}<a class="cta-link mono" href="{{@custom.linkedin_url}}" rel="noopener">LinkedIn ↗</a>{{/if}}
+    {{#if @custom.main_site_url}}<a class="btn btn-solid" href="{{@custom.main_site_url}}" rel="noopener">{{t "See portfolio"}}</a>{{/if}}
+    {{#if @custom.contact_email}}<a class="btn" href="mailto:{{@custom.contact_email}}">{{t "Talk to me"}}</a>{{/if}}
+    {{#if @custom.linkedin_url}}<a class="text-link" href="{{@custom.linkedin_url}}" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>{{/if}}
 </div>

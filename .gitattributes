@@ -3,4 +3,3 @@ sync-local.sh export-ignore
 package-lock.json export-ignore
 .gitignore export-ignore
 .gitattributes export-ignore
-tools/ export-ignore

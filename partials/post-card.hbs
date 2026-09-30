@@ -1,18 +1,16 @@
-<article class="pc {{post_class}}">
-    <a class="pc-cover" href="{{url}}" tabindex="-1" aria-hidden="true">
+<article class="card {{post_class}}">
+    <a class="card-img" href="{{url}}" tabindex="-1" aria-hidden="true">
         {{#if feature_image}}
-            <img class="cover" loading="lazy"
-                 src="{{img_url feature_image size="m"}}"
-                 srcset="{{img_url feature_image size="s"}} 320w, {{img_url feature_image size="m"}} 640w, {{img_url feature_image size="l"}} 1000w"
-                 sizes="(max-width: 760px) 92vw, (max-width: 1100px) 44vw, 300px"
-                 alt="">
+            <img loading="lazy" src="{{img_url feature_image size="s"}}"
+                 srcset="{{img_url feature_image size="s"}} 320w, {{img_url feature_image size="m"}} 640w"
+                 sizes="168px" alt="">
         {{else}}
-            <span class="cover cover-none"></span>
+            <span class="cover-type">{{#primary_tag}}{{name}}{{else}}{{@site.title}}{{/primary_tag}}</span>
         {{/if}}
     </a>
-    <div class="meta">
-        {{#if primary_tag}}<a class="chip" href="{{primary_tag.url}}">{{primary_tag.name}}</a>{{/if}}
-        <span class="mono muted"><time datetime="{{date format="YYYY-MM-DD"}}">{{date format="D MMM"}}</time> · {{reading_time minute=(t "1 min") minutes=(t "% min")}}</span>
+    <div class="card-body">
+        <p class="meta"><time datetime="{{date format="YYYY-MM-DD"}}">{{date format="D MMM YYYY"}}</time>{{#primary_tag}} · {{name}}{{/primary_tag}}</p>
+        <h2 class="display card-title"><a href="{{url}}">{{title}}</a></h2>
+        <p class="card-ex">{{excerpt words="18"}}</p>
     </div>
-    <h2 class="display sm"><a href="{{url}}">{{title}}</a></h2>
 </article>

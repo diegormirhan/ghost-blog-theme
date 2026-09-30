@@ -4,12 +4,9 @@
 <article class="post {{post_class}}">
     {{#if @page.show_title_and_feature_image}}
     <header class="post-head">
-        <h1 class="display md post-title">{{title}}</h1>
-        {{#if custom_excerpt}}<p class="lead muted">{{custom_excerpt}}</p>{{/if}}
+        <h1 class="display post-title">{{title}}</h1>
+        {{#if custom_excerpt}}<p class="post-lead">{{custom_excerpt}}</p>{{/if}}
     </header>
-    {{/if}}
-
-    {{#if @page.show_title_and_feature_image}}
     {{#if feature_image}}
     <figure class="post-cover">
         <img src="{{img_url feature_image size="xl"}}" alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}">
@@ -18,7 +15,7 @@
     {{/if}}
     {{/if}}
 
-    <div class="gh-content prose">
+    <div class="gh-content">
         {{content}}
     </div>
 </article>

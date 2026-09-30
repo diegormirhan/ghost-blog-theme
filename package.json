@@ -1,7 +1,7 @@
 {
   "name": "diego-mirhan",
-  "description": "Personal blog theme for Diego Mirhan: gradient frame, dark/light card that follows the system, hero with portfolio and contact calls to action, WCAG 2.2 AA.",
-  "version": "1.3.4",
+  "description": "Personal blog theme for Diego Mirhan: calm editorial layout, a home hero with an animated deck of real project screenshots, dark/light, pt-BR UI, WCAG 2.2 AA.",
+  "version": "2.0.0",
   "engines": {
     "ghost": ">=5.0.0"
   },
@@ -62,22 +62,6 @@
         "default": "contato@diegomirhan.com",
         "group": "homepage",
         "description": "Used by the \"Talk to me\" buttons and the footer"
-      },
-      "show_carousel": {
-        "type": "boolean",
-        "default": false,
-        "group": "homepage"
-      },
-      "carousel_seconds": {
-        "type": "select",
-        "options": [
-          "Off",
-          "5",
-          "7",
-          "10"
-        ],
-        "default": "7",
-        "group": "homepage"
       },
       "main_site_url": {
         "type": "text",

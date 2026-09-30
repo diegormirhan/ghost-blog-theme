@@ -1,32 +1,40 @@
 # diego-mirhan
 
-Ghost theme for [blog.diegomirhan.com](https://blog.diegomirhan.com), the blog that goes with my portfolio at [diegomirhan.com](https://www.diegomirhan.com). It uses the portfolio's colors and fonts: cobalt and cerulean, Bricolage Grotesque and JetBrains Mono. The layout is a blue gradient frame around a rounded card, which is dark or light depending on the reader's system setting.
+Ghost theme for [blog.diegomirhan.com](https://blog.diegomirhan.com), the blog that goes with my portfolio at [diegomirhan.com](https://www.diegomirhan.com). The layout is calm and editorial: cool neutrals with cobalt as the only accent, 8px corners, titles in sentence case (Bricolage Grotesque), body text in Geist. The home page opens with real screenshots of my projects instead of stock or generated art.
 
 | Dark (default) | Light |
 |---|---|
 | ![Home page, dark](docs/home-dark.jpg) | ![Home page, light](docs/home-light.jpg) |
 
-![End of a post: author box with portfolio and contact buttons, then the newsletter block](docs/post-author-dark.jpg)
+![A post, dark mode](docs/post-dark.jpg)
 
 ## What it does
 
-- **Hero on the home page.** It shows a headline, a short intro and three links: "See portfolio", "Talk to me" (email) and LinkedIn. You can edit all of it in Ghost Admin without touching code.
-- **Animated illustration in the hero** on wide screens: an isometric data scene as inline SVG (about 12 KB gzipped), animated with CSS only. Objects float, graph nodes pulse, light runs along the floor lines, bars and charts redraw, and the central stack assembles on load. A pause button (WCAG 2.2.2) stops it, it pauses while the hero is off screen, and it is off for `prefers-reduced-motion`. It stays clear of the text and is hidden below about 1150px, where the hero is text only. To change it, edit `tools/hero-art.mjs` and run `node tools/hero-art.mjs`.
-- **Author box at the end of every post.** It shows the bio, a one-line pitch and the same portfolio and contact buttons, followed by the newsletter signup.
-- **Dark and light modes** follow `prefers-color-scheme`, with dark as the base. All colors live as tokens at the top of `assets/css/screen.css`.
-- **Translated UI.** Every piece of interface text goes through Ghost's `{{t}}` helper. `locales/pt-BR.json` is complete and `locales/en.json` is the fallback, so you pick the language in Ghost Admin.
-- **Optional carousel** of highlights (newsletter, portfolio, GitHub, LinkedIn). It is off by default.
-- **Layout.** A fixed 14px frame at every window width. Content stops growing at 1480px. Container queries set the breakpoints.
+- **Hero on the home page:** headline, a short intro, "See portfolio" and "Talk to me" (email), and the newsletter signup. The texts are editable in Ghost Admin.
+- **Project deck.** Next to the hero, five real screenshots (PolyRAG, AeroPulse, RasterScope, ToolHaven, Manim Editor) are stacked like cards.
+  - Every 5.5 seconds the front card slides away and the next one comes forward.
+  - The caption links to the project page on the portfolio.
+  - Step bars show the timing, and clicking a bar, or a card peeking from behind, jumps to that project.
+  - On desktop the deck tilts slightly toward the mouse.
+  - The screenshots live in `assets/images/projects/` (640 and 1200 px WebP, 12 to 48 KB each).
+- **Home list:** the latest post as a large feature, then a two-column grid with a small cover, date, tag and excerpt. A post without a cover shows its tag on a plain panel, and a featured post without a cover becomes a full-width text block. It never shows a generated image.
+- **Posts:** a 680px reading column, lead paragraph, wide cover, then an author box with portfolio and contact buttons and the newsletter signup.
+- **Dark and light modes** follow `prefers-color-scheme`, with dark as the base. All colors are tokens at the top of `assets/css/screen.css`.
+- **Translated UI.** Every interface string goes through Ghost's `{{t}}` helper. `locales/pt-BR.json` is complete and `locales/en.json` is the fallback, so you pick the language in Ghost Admin.
 
 ## Accessibility (WCAG 2.2 AA)
 
-- Skip link, landmarks with labels, one `h1` per page and no skipped heading levels.
-- Text contrast is at least 4.5:1 in both modes. On gradients, the light spots sit behind empty space, so white text stays at about 7:1.
-- Visible focus on every control, with a white outline on blue blocks.
-- Targets are at least 24px tall, including small text links in the header and footer.
+- Skip link, labelled landmarks, one `h1` per page, no skipped heading levels.
+- Text contrast is at least 4.5:1 in both modes. Links inside text are underlined, not only colored.
+- Visible focus on every control. Targets are at least 24px tall, including the small footer links.
 - The email field keeps a label for screen readers; the visible hint is the placeholder.
-- Mobile menu: `aria-expanded`, and Escape closes it and returns focus to the button.
-- Carousel: pause button, keyboard arrows, and a pause on hover, on focus, when the tab is hidden or when it's off screen. `prefers-reduced-motion` stops every animation.
+- Mobile menu: `aria-expanded`; Escape closes it and returns focus to the button.
+- **Project deck:**
+  - Only the front card is focusable; the others are hidden from assistive tech.
+  - A pause button (WCAG 2.2.2). It also pauses on hover, on keyboard focus and when it is off screen.
+  - The automatic rotation is not announced, only the projects the visitor picks.
+  - With `prefers-reduced-motion` nothing moves by itself and the pause button is hidden; the step bars still switch projects.
+- Ghost's Portal and search popups keep a transparent background in dark mode (`iframe { color-scheme: light }`). Ghost's own bookmark-card CSS is overridden so its text stays readable in dark mode.
 
 ## Develop and test
 
@@ -38,61 +46,57 @@ npm run zip     # diego-mirhan.zip, ready to upload
 
 For a local Ghost, run `npx ghost-cli install local` inside `.ghost-local/`, which is gitignored. Then run `sh sync-local.sh` to copy the theme into it, and restart Ghost, since it caches templates and locales. The copy is needed because `.ghost-local` lives inside the theme, so a symlink would loop.
 
-### How 1.1.0 was tested
+### How 2.0.0 was tested
 
-- `gscan`: compatible with Ghost 6.x, no errors or warnings.
-- Ghost 6.67 running locally with the `pt-BR` locale and seeded posts. Pages checked: home, post, tag, author, 404.
-- axe-core 4.10 with the WCAG 2.0/2.1/2.2 A and AA rules plus best practices, in both dark and light mode: 0 violations. Axe can't measure contrast on gradients, so the hero and the newsletter block were checked by hand.
-- Widths: 375px (no horizontal scroll, mobile menu) and 2400px (fixed frame, capped content).
-- Not tested: a completed signup (it needs outgoing email), a logged-in member, paid tiers and comments.
+- `gscan`: compatible with Ghost 6.x.
+- Ghost 6.67 running locally with the `pt-BR` locale and seeded posts, some with covers and some without.
+- axe-core 4.10, WCAG 2.0/2.1/2.2 A and AA plus best practices, dark and light. Pages: home, post, tag, author, 404. Result: 0 violations.
+- Deck, checked in a real-time headless Chrome:
+  - the caption and the front card change together every 5.5 s;
+  - the pause button and the step bars work;
+  - with reduced motion nothing changes after 7 s.
+- Phone (390px, mobile emulation): no element wider than the screen on home, post and tag pages.
+- Not tested: a completed signup (it needs outgoing email), a logged-in member, paid tiers, comments.
 
 ## Ghost settings
 
 | Where | What |
 |---|---|
-| General | Title, description (sidebar), publication icon (sidebar avatar), **language `pt-BR`** |
-| Design → Homepage | Hero title and subtitle, contact email, carousel on or off and its speed, and the portfolio, GitHub, LinkedIn and Medium links. Leave a link empty to hide it everywhere. |
-| Navigation | Primary links. A "Portfolio ↗" link is added automatically. Ghost's default labels "Home" and "About" show up as "Início" and "Sobre"; any other label shows as you type it. |
+| General | Title, description, publication icon, **language `pt-BR`** |
+| Design → Homepage | Hero title and subtitle, contact email, and the portfolio, GitHub, LinkedIn and Medium links. The project links in the deck are built from the portfolio link. Leave a link empty to hide it. |
+| Navigation | Primary links. A "Portfolio ↗" link is added automatically. Ghost's default labels "Home" and "About" show up as "Início" and "Sobre". |
 | Memberships | Turn on signups to show the newsletter blocks. |
-| Posts | Mark posts as **Featured** to list them in the sidebar. |
 
 ## Structure
 
 ```
-default.hbs            layout: frame + card, header, footer
-index.hbs              home (hero, optional carousel, latest post) and /page/N
+default.hbs            layout: header, main, footer
+index.hbs              home (hero + deck, featured post, grid) and /page/N
 post.hbs  page.hbs     article (author box + CTA, newsletter), static page
 tag.hbs  author.hbs    archives
 error.hbs              404 and other errors
-partials/              header, footer, hero, cta-links, carousel, sidebar, post-card, post-feature, subscribe, pagination
+partials/              header, footer, hero, projects (deck), cta-links, post-card, post-feature, subscribe, pagination
 locales/               pt-BR.json, en.json
 assets/css/screen.css  all styles, color tokens at the top
-assets/js/main.js      mobile menu and carousel
-assets/fonts/          self-hosted woff2 (Bricolage Grotesque, JetBrains Mono)
+assets/js/main.js      mobile menu and project deck
+assets/images/projects project screenshots (WebP)
+assets/fonts/          self-hosted woff2: Geist, Bricolage Grotesque, JetBrains Mono (OFL)
 ```
 
 ## Changelog
 
-- 1.3.4: wider post titles (30ch, balanced lines); email field shows the hint as placeholder, label kept for screen readers.
-- 1.3.3: bookmark cards readable in dark mode (Ghost card CSS forced a white card with 70% faded text, 2.2:1 contrast; now 7.5:1).
-- 1.3.2: the header "Subscribe" button opens the Ghost Portal popup on every page again (the hero form stays).
-- 1.3.1: Ghost popups (Portal, search) no longer show a grey box around them in dark mode.
-- 1.3.0: newsletter signup in the home hero; on the home page the header "Subscribe" button scrolls to it and focuses the email field (other pages keep the Ghost Portal popup).
-- 1.2.0: animated isometric illustration in the home hero, with a pause button, off-screen pause and reduced-motion support.
-- 1.1.0:
-  - dark mode that follows the system;
-  - home hero with portfolio and contact CTAs;
-  - author box with CTAs at the end of posts;
-  - Portuguese UI via `{{t}}` and `locales/`;
-  - WCAG 2.2 AA pass: heading order, visible email label, target sizes, gradient contrast;
-  - fixed frame on wide screens;
-  - carousel off by default;
-  - `npm test` / `npm run zip`.
-- 1.0.1:
-  - pagination moved to `partials/pagination.hbs`;
-  - `h1` on the home page;
-  - 404 shows the status code;
-  - reduced motion disables the background animation.
+- 2.0.0: new look.
+  - Removed: the gradient frame, the gradient hero, the isometric illustration, the carousel, uppercase condensed titles and pill buttons.
+  - Added: a sentence-case editorial layout with Geist and neutral tokens, and a hero with an animated deck of real project screenshots.
+  - Changed: the home list is now a featured post plus a two-column grid, and posts without a cover get a text panel.
+- 1.3.4: wider post titles; email field shows the hint as placeholder.
+- 1.3.3: bookmark cards readable in dark mode.
+- 1.3.2: the header "Subscribe" button opens the Ghost Portal popup on every page.
+- 1.3.1: Ghost popups no longer show a grey box around them in dark mode.
+- 1.3.0: newsletter signup in the home hero.
+- 1.2.0: animated isometric illustration in the home hero.
+- 1.1.0: dark mode, home hero with CTAs, author box, Portuguese UI, WCAG 2.2 AA pass, `npm test` / `npm run zip`.
+- 1.0.1: pagination partial, `h1` on the home page, 404 status code, reduced motion.
 - 1.0.0: first release.
 
 ## License

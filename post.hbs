@@ -3,24 +3,21 @@
 {{#post}}
 <article class="post {{post_class}}">
     <header class="post-head">
-        <div class="mono muted post-meta">
-            {{#if primary_tag}}<a class="chip" href="{{primary_tag.url}}">{{primary_tag.name}}</a>{{/if}}
-            <span><time datetime="{{date format="YYYY-MM-DD"}}">{{date format="D MMM YYYY"}}</time> · {{reading_time minute=(t "1 min read") minutes=(t "% min read")}}</span>
-        </div>
-        <h1 class="display md post-title">{{title}}</h1>
-        {{#if custom_excerpt}}<p class="lead muted">{{custom_excerpt}}</p>{{/if}}
+        <p class="meta">{{#primary_tag}}<a href="{{url}}">{{name}}</a> · {{/primary_tag}}<time datetime="{{date format="YYYY-MM-DD"}}">{{date format="D MMM YYYY"}}</time> · {{reading_time minute=(t "1 min read") minutes=(t "% min read")}}</p>
+        <h1 class="display post-title">{{title}}</h1>
+        {{#if custom_excerpt}}<p class="post-lead">{{custom_excerpt}}</p>{{/if}}
     </header>
 
     {{#if feature_image}}
     <figure class="post-cover">
         <img src="{{img_url feature_image size="xl"}}"
              srcset="{{img_url feature_image size="m"}} 640w, {{img_url feature_image size="l"}} 1000w, {{img_url feature_image size="xl"}} 2000w"
-             sizes="(max-width: 1200px) 92vw, 1100px" alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}">
+             sizes="(max-width: 1000px) 94vw, 960px" alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}">
         {{#if feature_image_caption}}<figcaption>{{{feature_image_caption}}}</figcaption>{{/if}}
     </figure>
     {{/if}}
 
-    <div class="gh-content prose">
+    <div class="gh-content">
         {{content}}
     </div>
 
@@ -32,7 +29,7 @@
             <span class="av" aria-hidden="true"></span>
         {{/if}}
         <div class="author-body">
-            <p class="mono muted">{{t "Written by"}}</p>
+            <p class="meta">{{t "Written by"}}</p>
             <h2 class="author-name"><a href="{{primary_author.url}}">{{primary_author.name}}</a></h2>
             {{#if primary_author.bio}}<p class="muted">{{primary_author.bio}}</p>{{/if}}
             <p class="author-pitch">{{t "Open to opportunities and projects in AI and software development."}}</p>
@@ -43,10 +40,10 @@
 
     {{#if @site.members_enabled}}
         {{#unless @member}}
-        <section class="sub" aria-labelledby="sub-title">
+        <section class="band" aria-labelledby="sub-title">
             <div>
-                <h2 class="display sm" id="sub-title">{{t "Liked this? Get the next one"}}</h2>
-                <p>{{t "One email per new post. No spam."}}</p>
+                <h2 class="display band-title" id="sub-title">{{t "Liked this? Get the next one"}}</h2>
+                <p class="muted">{{t "One email per new post. No spam."}}</p>
             </div>
             {{> subscribe}}
         </section>
@@ -55,14 +52,14 @@
 
     {{#next_post}}
     <a class="post-next" href="{{url}}">
-        <span class="mono muted">{{t "Next post"}}</span>
-        <span class="display md next-title">{{title}}</span>
+        <span class="meta">{{t "Next post"}}</span>
+        <span class="display next-title">{{title}}</span>
     </a>
     {{else}}
         {{#prev_post}}
         <a class="post-next" href="{{url}}">
-            <span class="mono muted">{{t "Previous post"}}</span>
-            <span class="display md next-title">{{title}}</span>
+            <span class="meta">{{t "Previous post"}}</span>
+            <span class="display next-title">{{title}}</span>
         </a>
         {{/prev_post}}
     {{/next_post}}
