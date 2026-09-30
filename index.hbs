@@ -3,8 +3,9 @@
 {{#is "home"}}
     {{> hero}}
 
-    {{!-- A post marked "Feature this post" in Ghost gets the big slot; without one, the latest post takes it.
-          Either way the rest is a uniform grid, so nothing competes with the big one. --}}
+    {{!-- A post marked "Feature this post" in Ghost gets the big slot in its own section; without one, the latest
+          post takes the big slot. Either way the rest is a uniform grid, so nothing competes with the big one.
+          ../posts is the home page's own list (the get block replaces the context); pagination stays outside. --}}
     {{#get "posts" filter="featured:true" limit="1" as |featured|}}
         {{#if featured}}
             <section class="wrap home-posts home-featured" aria-labelledby="featured-title">
@@ -16,27 +17,25 @@
             <section class="wrap home-posts" aria-labelledby="latest-title">
                 <h2 class="display section-title" id="latest-title">{{t "Latest posts"}}</h2>
                 <div class="grid">
-                    {{#foreach @root.posts}}
+                    {{#foreach ../posts}}
                         {{#unless featured}}{{> post-card}}{{/unless}}
                     {{/foreach}}
                 </div>
-                {{pagination}}
-            </section>
         {{else}}
             <section class="wrap home-posts" aria-labelledby="latest-title">
                 <h2 class="display section-title" id="latest-title">{{t "Latest posts"}}</h2>
-                {{#foreach @root.posts limit="1"}}
+                {{#foreach ../posts limit="1"}}
                     {{> post-feature}}
                 {{/foreach}}
                 <div class="grid">
-                    {{#foreach @root.posts from="2"}}
+                    {{#foreach ../posts from="2"}}
                         {{> post-card}}
                     {{/foreach}}
                 </div>
-                {{pagination}}
-            </section>
         {{/if}}
     {{/get}}
+        {{pagination}}
+    </section>
 {{else}}
     <section class="wrap page-posts">
         <header class="page-head">
