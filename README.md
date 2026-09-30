@@ -73,6 +73,7 @@ assets/fonts/          self-hosted woff2 (Bricolage Grotesque, JetBrains Mono)
 
 ## Changelog
 
+- 1.3.2: the header "Subscribe" button opens the Ghost Portal popup on every page again (the hero form stays).
 - 1.3.1: Ghost popups (Portal, search) no longer show a grey box around them in dark mode.
 - 1.3.0: newsletter signup in the home hero; on the home page the header "Subscribe" button scrolls to it and focuses the email field (other pages keep the Ghost Portal popup).
 - 1.2.0: animated isometric illustration in the home hero, with a pause button, off-screen pause and reduced-motion support.

@@ -14,11 +14,7 @@
         </button>
         {{#if @site.members_enabled}}
             {{#unless @member}}
-                {{#is "home"}}
-                    <a class="pill solid hd-sub" href="#assinar" data-to-newsletter>{{t "Subscribe"}}</a>
-                {{else}}
-                    <a class="pill solid hd-sub" href="#/portal/signup" data-portal="signup">{{t "Subscribe"}}</a>
-                {{/is}}
+                <a class="pill solid hd-sub" href="#/portal/signup" data-portal="signup">{{t "Subscribe"}}</a>
             {{else}}
                 <a class="pill hd-sub" href="#/portal/account" data-portal="account">{{t "Account"}}</a>
             {{/unless}}
@@ -34,11 +30,7 @@
             {{/if}}
             {{#if @site.members_enabled}}
                 {{#unless @member}}
-                    {{#is "home"}}
-                        <a href="#assinar" data-to-newsletter>{{t "Subscribe"}}</a>
-                    {{else}}
-                        <a href="#/portal/signup" data-portal="signup">{{t "Subscribe"}}</a>
-                    {{/is}}
+                    <a href="#/portal/signup" data-portal="signup">{{t "Subscribe"}}</a>
                 {{/unless}}
             {{/if}}
         </nav>
