@@ -833,6 +833,13 @@ a.chip:hover { border-color: var(--accent); color: var(--accent); }
     text-decoration: none !important;
 }
 .kg-bookmark-container:hover { border-color: var(--accent); }
+/* Ghost's cards.min.css forces a white bookmark card (#fff, text #222) and fades the description to 70%:
+   in dark mode that left light text on white (1.7:1). These selectors outrank it. */
+.gh-content .kg-bookmark-card a.kg-bookmark-container,
+.gh-content .kg-bookmark-card a.kg-bookmark-container:hover { background: var(--surface); color: var(--ink); border-color: var(--line-strong); }
+.gh-content .kg-bookmark-card a.kg-bookmark-container:hover { border-color: var(--accent); }
+.gh-content .kg-bookmark-description,
+.gh-content .kg-bookmark-metadata { opacity: 1; color: var(--muted); }
 .kg-bookmark-content { flex: 1; min-width: 0; padding: 18px 20px; display: grid; gap: 6px; align-content: start; }
 .kg-bookmark-title { font-weight: 700; line-height: 1.2; }
 .kg-bookmark-description { font-size: 0.9rem; line-height: 1.4; color: var(--muted); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
