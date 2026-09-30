@@ -85,6 +85,7 @@ assets/fonts/          self-hosted woff2: Geist, Bricolage Grotesque, JetBrains 
 
 ## Changelog
 
+- 2.0.1: the arrow in the deck caption no longer wraps onto its own line.
 - 2.0.0: new look.
   - Removed: the gradient frame, the gradient hero, the isometric illustration, the carousel, uppercase condensed titles and pill buttons.
   - Added: a sentence-case editorial layout with Geist and neutral tokens, and a hero with an animated deck of real project screenshots.
