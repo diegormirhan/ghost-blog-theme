@@ -215,7 +215,33 @@ iframe { color-scheme: light; }
     /* the cards waiting behind the deck sit up and to the right; without this they widen the page on phones */
     overflow-x: clip;
 }
-.hero-title { font-size: clamp(2.5rem, 5.2vw, 3.9rem); line-height: 1.02; max-width: 13ch; }
+.hero-title { position: relative; font-size: clamp(2.5rem, 5.2vw, 3.9rem); line-height: 1.02; max-width: 13ch; }
+
+/* A dot grid behind the title, nearly invisible, with a lit area that drifts slowly left and right.
+   Two layers of the same grid: a faint one in a wide soft spot and a brighter one in a small spot,
+   both following --x. It pauses with the deck (button, off screen) and stays still for reduced motion. */
+@property --gx { syntax: "<percentage>"; inherits: true; initial-value: 22%; }
+.hero-title-box { position: relative; isolation: isolate; }
+.hero-grid, .hero-grid::before, .hero-grid::after { position: absolute; pointer-events: none; }
+.hero-grid { inset: -36px -48px -28px -48px; z-index: -1; animation: grid-scan 7s ease-in-out infinite alternate; }
+.hero-grid::before, .hero-grid::after { content: ""; inset: 0; background-size: 18px 18px; }
+.hero-grid::before {
+    background-image: radial-gradient(circle, var(--grid-dim) 1.2px, transparent 1.6px);
+    -webkit-mask-image: radial-gradient(42% 70% at var(--gx) 50%, #000, transparent 72%);
+    mask-image: radial-gradient(42% 70% at var(--gx) 50%, #000, transparent 72%);
+}
+.hero-grid::after {
+    background-image: radial-gradient(circle, var(--grid-lit) 1.4px, transparent 1.8px);
+    opacity: 0.6;
+    -webkit-mask-image: radial-gradient(15% 32% at var(--gx) 50%, #000, transparent 72%);
+    mask-image: radial-gradient(15% 32% at var(--gx) 50%, #000, transparent 72%);
+}
+@keyframes grid-scan { from { --gx: 12%; } to { --gx: 88%; } }
+.hero:has(.deck.is-paused) .hero-grid,
+.hero:has(.deck.is-offscreen) .hero-grid { animation-play-state: paused; }
+:root { --grid-dim: #2d3a5c; --grid-lit: #6f93ff; }
+@media (prefers-color-scheme: light) { :root { --grid-dim: #c7d0e3; --grid-lit: #2447c9; } }
+@media (prefers-reduced-motion: reduce) { .hero-grid { animation: none; --gx: 30%; } }
 .hero-sub { margin-top: 20px; max-width: 42ch; font-size: 1.125rem; color: var(--fg-2); }
 .hero-cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
 .hero-news { max-width: 460px; margin-top: 36px; padding-top: 24px; border-top: 1px solid var(--line); scroll-margin-top: 24px; }

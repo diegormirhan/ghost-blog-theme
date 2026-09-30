@@ -1,6 +1,9 @@
 <section class="hero wrap" aria-labelledby="hero-title">
     <div class="hero-text">
-        <h1 class="display hero-title" id="hero-title">{{#if @custom.hero_title}}{{@custom.hero_title}}{{else}}{{@site.title}}{{/if}}</h1>
+        <div class="hero-title-box">
+            <span class="hero-grid" aria-hidden="true"></span>
+            <h1 class="display hero-title" id="hero-title">{{#if @custom.hero_title}}{{@custom.hero_title}}{{else}}{{@site.title}}{{/if}}</h1>
+        </div>
         {{#if @custom.hero_subtitle}}<p class="hero-sub">{{@custom.hero_subtitle}}</p>{{/if}}
         <div class="hero-cta">
             {{#if @custom.main_site_url}}<a class="btn btn-light" href="{{@custom.main_site_url}}" rel="noopener">{{t "See portfolio"}}</a>{{/if}}
