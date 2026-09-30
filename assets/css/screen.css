@@ -602,7 +602,7 @@ a:is(:hover, :focus-visible) .arr-fwd { transform: translateX(3px); }
 
 /* ---------- Scrollbar (desktop mouse only), same as the portfolio ---------- */
 /* The native bar is hidden and this one takes over: a thin gradient thumb that stays quiet when idle,
-   lights up and stretches a little with scroll speed, grows on hover, can be dragged or clicked. */
+   lights up while scrolling (always the same size), grows on hover, can be dragged or clicked. */
 html.has-scrollbar { scrollbar-width: none; }
 html.has-scrollbar::-webkit-scrollbar { display: none; }
 #scrollbar { display: none; }
@@ -617,7 +617,6 @@ html.has-scrollbar::-webkit-scrollbar { display: none; }
     position: absolute; top: 0; right: 2px; width: 4px; border-radius: 999px;
     background: linear-gradient(180deg, #8fd3ff, #5b82f5 55%, var(--brand));
     opacity: 0.45;
-    transform-origin: 50% 0;
     will-change: transform;
     transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1), right 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }

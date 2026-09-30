@@ -66,14 +66,13 @@
     }
 
     /* ---------- Scrollbar (desktop mouse only), same as the portfolio ---------- */
-    // Native scrolling stays in charge (wheel, keys, anchors); this only draws the thumb. Speed comes from the
-    // position change between frames, and the stretch relaxes back to zero on its own.
+    // Native scrolling stays in charge (wheel, keys, anchors); this only draws the thumb, at a fixed size.
     var bar = document.getElementById('scrollbar');
     var thumb = bar && bar.querySelector('.scrollbar__thumb');
     if (bar && thumb && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
         var root = document.documentElement;
         root.classList.add('has-scrollbar');
-        var size = 0, travel = 0, max = 0, idle = 0, stretch = 0, lastY = window.scrollY, ticking = false;
+        var size = 0, travel = 0, max = 0, idle = 0, ticking = false;
         var measure = function () {
             var view = window.innerHeight;
             max = Math.max(0, root.scrollHeight - view);
@@ -82,22 +81,11 @@
             thumb.style.height = size + 'px';
             bar.classList.toggle('is-empty', max <= 0);
         };
-        var place = function (velocity) {
-            var y = window.scrollY;
-            var p = max > 0 ? Math.min(1, Math.max(0, y / max)) : 0;
-            var target = reduceMotion ? 0 : Math.min(Math.abs(velocity) / 60, 0.35);
-            stretch += (target - stretch) * 0.35;
-            var grow = size * stretch;
-            var offset = velocity < 0 ? -grow : 0;
-            thumb.style.transform = 'translateY(' + (p * travel + offset) + 'px) scaleY(' + ((size + grow) / Math.max(size, 1)) + ')';
+        var place = function () {
+            var p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+            thumb.style.transform = 'translateY(' + (p * travel) + 'px)';
         };
-        var frame = function () {
-            var y = window.scrollY;
-            var v = y - lastY;
-            lastY = y;
-            place(v);
-            if (Math.abs(v) > 0.5 || stretch > 0.005) { window.requestAnimationFrame(frame); } else { ticking = false; place(0); }
-        };
+        var frame = function () { ticking = false; place(); };
         window.addEventListener('scroll', function () {
             bar.classList.add('is-active');
             window.clearTimeout(idle);
@@ -105,9 +93,9 @@
             if (!ticking) { ticking = true; window.requestAnimationFrame(frame); }
         }, { passive: true });
         measure();
-        place(0);
-        if ('ResizeObserver' in window) { new ResizeObserver(function () { measure(); place(0); }).observe(document.body); }
-        window.addEventListener('resize', function () { measure(); place(0); });
+        place();
+        if ('ResizeObserver' in window) { new ResizeObserver(function () { measure(); place(); }).observe(document.body); }
+        window.addEventListener('resize', function () { measure(); place(); });
 
         var dragFrom = -1, scrollFrom = 0;
         thumb.addEventListener('pointerdown', function (e) {

@@ -87,6 +87,7 @@ assets/fonts/          self-hosted woff2: Geist, Bricolage Grotesque, JetBrains 
 
 - 2.3.0: a dot grid behind the hero title with a lit area that drifts slowly; it pauses with the deck and stays still for reduced motion.
 - 2.3.1: post cards on the home page carry the cover alt text (the post title when a cover has none).
+- 2.3.2: the custom scrollbar thumb keeps the same size while scrolling (no more stretch with speed).
 - 2.2.0: motion layer: page transitions (View Transitions, the card cover and title morph into the post), reading progress bar on posts (scroll-driven CSS), posts revealing on scroll, arrows that slide on hover, and the portfolio's custom scrollbar (desktop mouse only). All off for prefers-reduced-motion.
 - 2.1.0: faster project deck (3.6 s per project); the site title in the header gets the portfolio hover (letters roll up in a wave, the dot hops and lights up).
 - 2.0.1: the arrow in the deck caption no longer wraps onto its own line.

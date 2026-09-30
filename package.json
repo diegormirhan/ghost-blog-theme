@@ -1,7 +1,7 @@
 {
   "name": "diego-mirhan",
   "description": "Personal blog theme for Diego Mirhan: calm editorial layout, a home hero with an animated deck of real project screenshots, dark/light, pt-BR UI, WCAG 2.2 AA.",
-  "version": "2.3.1",
+  "version": "2.3.2",
   "engines": {
     "ghost": ">=5.0.0"
   },
