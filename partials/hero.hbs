@@ -4,6 +4,14 @@
         <h1 class="display hero-title" id="hero-title">{{#if @custom.hero_title}}{{@custom.hero_title}}{{else}}{{@site.title}}{{/if}}</h1>
         {{#if @custom.hero_subtitle}}<p class="lead hero-sub">{{@custom.hero_subtitle}}</p>{{/if}}
         {{> cta-links}}
+        {{#if @site.members_enabled}}
+            {{#unless @member}}
+            <div class="hero-news" id="assinar">
+                <p class="hero-news-title">{{t "Get new posts by email"}}</p>
+                {{> subscribe}}
+            </div>
+            {{/unless}}
+        {{/if}}
     </div>
     <button type="button" class="hero-pause" aria-pressed="false" data-hero-pause data-l-pause="{{t "Pause animation"}}" data-l-play="{{t "Play animation"}}" aria-label="{{t "Pause animation"}}">
         <svg class="ip" viewBox="0 0 10 10" aria-hidden="true"><rect x="1" y="0.5" width="3" height="9"/><rect x="6" y="0.5" width="3" height="9"/></svg>

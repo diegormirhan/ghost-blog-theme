@@ -73,6 +73,7 @@ assets/fonts/          self-hosted woff2 (Bricolage Grotesque, JetBrains Mono)
 
 ## Changelog
 
+- 1.3.0: newsletter signup in the home hero; on the home page the header "Subscribe" button scrolls to it and focuses the email field (other pages keep the Ghost Portal popup).
 - 1.2.0: animated isometric illustration in the home hero, with a pause button, off-screen pause and reduced-motion support.
 - 1.1.0:
   - dark mode that follows the system;

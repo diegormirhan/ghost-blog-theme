@@ -611,6 +611,15 @@ a.chip:hover { border-color: var(--accent); color: var(--accent); }
 .hero-title { max-width: 14ch; font-size: clamp(2.6rem, 8.2cqw, 6.4rem); text-wrap: balance; }
 .hero-sub { margin-top: 20px; max-width: 50ch; color: rgb(255 255 255 / 88%); }
 .hero .cta { margin-top: 28px; }
+.hero-news {
+    max-width: 520px;
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid rgb(255 255 255 / 22%);
+    scroll-margin-top: 24px;
+}
+.hero-news-title { margin-bottom: 12px; font-weight: 600; font-size: 1.05rem; color: #fff; }
+.hero .subscribe-form { padding: 0; }
 .hero .pill { background: transparent; border-color: rgb(255 255 255 / 70%); color: #fff; }
 .hero .pill:hover { background: rgb(255 255 255 / 14%); border-color: #fff; }
 .hero .pill.solid { background: #fff; border-color: #fff; color: var(--cobalt); }

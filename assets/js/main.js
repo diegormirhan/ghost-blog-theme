@@ -25,6 +25,19 @@
         });
     }
 
+    /* ---------- "Subscribe" on the home page: go to the hero form and focus the email field ---------- */
+    [].forEach.call(document.querySelectorAll('[data-to-newsletter]'), function (link) {
+        link.addEventListener('click', function (e) {
+            var box = document.getElementById('assinar');
+            var input = box && box.querySelector('input[type="email"]');
+            if (!input) { return; }
+            e.preventDefault();
+            if (panel && !panel.hasAttribute('hidden')) { toggle.click(); }
+            box.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+            input.focus({ preventScroll: true });
+        });
+    });
+
     /* ---------- Hero animation: pause button + pause while off screen ---------- */
     var hero = document.querySelector('[data-hero]');
     var heroBtn = hero && hero.querySelector('[data-hero-pause]');
