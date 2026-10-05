@@ -11,7 +11,7 @@ Ghost theme for [blog.diegomirhan.com](https://blog.diegomirhan.com), the blog t
 ## What it does
 
 - **Hero on the home page:** headline, a short intro, "See portfolio" and "Talk to me" (email), and the newsletter signup. The texts are editable in Ghost Admin.
-- **Project deck.** Next to the hero, five real screenshots (PolyRAG, AeroPulse, RasterScope, ToolHaven, Manim Editor) are stacked like cards.
+- **Project deck.** Next to the hero, five real screenshots (PolyRAG, AeroPulse, RasterScope, Tools4Devs, Manim Editor) are stacked like cards.
   - Every 3.6 seconds the front card slides away and the next one comes forward.
   - The caption links to the project page on the portfolio.
   - Step bars show the timing, and clicking a bar, or a card peeking from behind, jumps to that project.
